@@ -360,13 +360,6 @@
                         <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">Settings</span>
                     </a>
-                    
-		    
-		    <%-- 채널 링크(테스트용) --%>
-                    <a href="<%=request.getContextPath() %>/channel.do" class="nav__link">
-                        <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                        <span class="nav_name">Settings</span>
-                    </a>
                 </div>
                 <a href="#" class="nav__link">
                     <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
