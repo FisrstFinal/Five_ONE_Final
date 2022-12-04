@@ -356,7 +356,7 @@
                         </ul>
                     </div>
 
-					<a href="#" class="nav__link">
+			<a href="#" class="nav__link">
                         <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                         <span class="nav_name">Settings</span>
                     </a>
