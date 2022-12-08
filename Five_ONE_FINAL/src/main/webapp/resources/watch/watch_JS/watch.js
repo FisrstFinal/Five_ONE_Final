@@ -19,7 +19,7 @@ $(document).ready(function() {
 	}
 
 	let video_code = $("#video_code").val();
-	
+	let video_option = "most";
 	
 	function getReply(video_code, video_option){
 
@@ -133,21 +133,29 @@ $(document).ready(function() {
  				toggle_img.attr("src", getContextPath() +"/resources/watch/watch_img/comment_open.png");
  				toggle_img.removeClass("close");
  				toggle_img.addClass("open");
- 			}
- 			
- 			
- 		
+ 			}			 					
  		
  		 });
 
-		 $("#dropdown_menu").on("click", function(){
-			//let video_option = $("#video_option").val();
-			//getReply(video_code, video_option);
+		 $(".dropdown_menu").on("click", function(){
 			
+			if($(".dropdown_wrap").css("display") == "none"){
+				$(".dropdown_wrap").css("display", "block");
+			}
 
 		 });
 		 
-		
+		 $(document).on("mouseup", function(){
+		 	if($(".dropdown_wrap").css("display") == "block"){
+		 		$(".dropdown_wrap").css("disply", "none");
+		 	}
+		 });
+
+		 $(".video_option").on("click", function(){
+			video_option = $(this).attr("data-value");
+			alert(video_option);
+			//getReply(video_code, video_option);
+		 });
 
 		  
  

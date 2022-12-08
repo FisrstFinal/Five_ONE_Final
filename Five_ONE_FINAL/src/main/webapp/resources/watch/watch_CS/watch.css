@@ -205,6 +205,11 @@ button{
 	position: relative;
 	z-index: 1;
 	width:8rem;
+	
+}
+
+.dropdown_menu{
+	cursor: pointer;
 }
 
 .dropdown_wrap{
@@ -228,7 +233,6 @@ button{
 
 .dropdown_content a:hover {background-color: #ddd;}
 
-.dropdown_menu:hover .dropdown_wrap {display: block;}
 
 
 .menu_icon{
@@ -376,9 +380,9 @@ button{
 	display: block;
 }
 
-.input_comment:hover .render_icon{
+ .input_comment:hover .render_icon{
 	display: block;
-}
+} 
 
 /* 사이드바 CSS */
 .side_box {
