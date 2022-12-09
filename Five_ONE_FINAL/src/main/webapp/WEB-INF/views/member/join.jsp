@@ -151,16 +151,20 @@
 	
 	$(function(){
 		
+		// -------------------- ajex 셋업 -----------------------------
 		$.ajaxSetup({
 			ContentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			type : "post"								
 		});
 		
+		
+		// -------------------- view 화면 구성 -----------------------------
 		$("#join-content-1").nextAll().hide();
 		
 		$("#submit-1").attr("disabled", true);
 		$("#submit-2").attr("disabled", true);
 		
+		// 창 전환, 프로세스바 이동
 		$(".join-form-btn").on('click', function(){
 			$(this).parent().parent('div').fadeOut('fast');
 			$(this).parent().parent('div').next().fadeIn(1000);
@@ -172,6 +176,7 @@
 			
 		});
 		
+		// input 창 placeholder 구현
 		$(".join-input").on('focus', function(){
 			$(this).prev('div').addClass('onfocus');
 		});
@@ -185,6 +190,7 @@
 		});
 		
 		
+		// 선택정보 입력 확인하는 함수(1가지 항목이라도 입력하면 활성화)
 		function optionalInputChange(){
 			if ( 
 					$("#input-name").val() == "" &&
@@ -199,21 +205,22 @@
 				}
 		}
 		
-		
+		// 필수입력 & 선택입력 확인하여 submit버튼 활성화하는 함수
 		$(".join-input").on('keyup', function(){
 			
+			// (필수입력은 모두 입력해야 활성화)
 			if ($("#input-id").val() != '' && $("#input-pwd").val() != '' && $("#input-pwd-confirm").val() != '') {
 				$("#submit-1").attr("disabled", false);
 			}else {
 				$("#submit-1").attr("disabled", true);
 			}
-			
-			/* if ($("#input-pwd").val() == ) */
-			
+						
 			optionalInputChange();
 			
 		});
 		
+		
+		// input[type=date] placeholder 제거하는 함수
 		$("input[type=date].date-placeholder").on("change", function(){
 			if ($(this).val() == ""){
 				$(this).addClass("date-empty");
@@ -227,6 +234,24 @@
 		});
 		
 		
+		
+		// -------------------- 클라이언트 -> 컨트롤러 로직 -----------------------
+		
+		// 아이디, 비밀번호, 이름, 이메일, 전화번호 유효성 확인하는 정규식
+		let idReg = /^[a-zA-Z0-9][a-zA-Z0-9]{3,10}$/; //영대소문, 숫자 4~10글자
+		let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/; //영대소문, 숫자, 특수문자 하나씩 포함하여 8~16글자
+		let nameReg = /^[가-힣a-zA-Z]+$/;
+		let emailReg = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		let phoneReg = /^01[0179][0-9]{7,8}$/;
+		
+		// 정규식에 부합한지 확인하는 함수
+		function regCheck(checkType, value){
+			let Reg = RegExp(checkType);
+			let result = Reg.test(value);
+			return result;
+		}
+		
+		// 아이디 중복을 확인하는 함수
 		function joinIdCheck(){
 			let id = $("#input-id").val();
 			console.log(id);
@@ -254,21 +279,40 @@
 				
 		}
 		
+		
+		// 1초동안 keyup없으면 id유효성 검사하는 이벤트 (db에 과요청 방지)
 		$("#input-id").on('keyup', function(){
-			joinIdCheck();
+			
+			let keyupTimeout;
+			clearTimeout(keyupTimeout);
+			keyupTimeout = setTimeout(function(){
+				
+				if ($("#input-id").val() != ""){
+					
+					$("#input-id-check").show();
+					$("#input-id-label").hide();
+					
+					if (!regCheck(idReg, $("#input-id").val())){
+						$("#input-id").val($("#input-id").val().replace(idReg, ''));
+						$("#input-id-check").text("4~10글자의 이하의 영문, 숫자만 아이디로 사용할 수 있습니다.");
+						$("#input-id-check").css("color", "red");
+					}else{
+						joinIdCheck();
+					}
+				}
+			}, 1000);
+			
+			
 		});
 		
 		
 		
-
-
 	});
 	
-	function ajaxTest(){
+/* 	function ajaxTest(){
 		$.ajax({
 			url : "./testajax.do",
 			type: "POST",
-			dataType: 'json',
 			success : function(data){
 				
 				$(data).each(function(){
@@ -281,12 +325,13 @@
 			}
 		});
 		
-	}
+	} */
+
 	
 </script>
 </head>
 <body>
-<button onclick="ajaxTest();">테스트~~~~~~~~~~~~</button>
+<!-- <button onclick="ajaxTest();">테스트~~~~~~~~~~~~</button> -->
 	<div id="join-page-wrap"> 
 		<jsp:include page="../include/top_include.jsp"/>
 		<div id="join-wrap">

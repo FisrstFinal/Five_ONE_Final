@@ -79,17 +79,17 @@ public class MemberController {
 		}
 	}
 	
-	@ResponseBody
-	@RequestMapping("testajax.do")
-	public List<MemberDTO> test(){
-		List<MemberDTO> list = dao.getMemberList();
-		
-		if(list.size() != 0) {
-			System.out.println("리스트 잘 넘어옴");
-		}
-		
-		return list;
-	}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("testajax.do") public List<MemberDTO> test(){ List<MemberDTO>
+	 * list = dao.getMemberList();
+	 * 
+	 * if(list.size() != 0) { System.out.println("리스트 잘 넘어옴"); }
+	 * 
+	 * return list; }
+	 */
+	
 	
 
 }
