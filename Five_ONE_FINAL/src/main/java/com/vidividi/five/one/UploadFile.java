@@ -32,12 +32,9 @@ public class UploadFile {
 		// 梨꾨꼸 肄붾뱶 �삉�뒗 梨꾨꼸 �씠由�, �쁺�긽 �젣紐� 
 		String saveFileName = "";
 		String dateFolder = "";
-
-		//String uploadVideoPath = "C:/final/GitHub/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/" + lastChannelCode + "/";
-		//String uploadVideoPath = "F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/"; // 吏� PC
-		//String uploadVideoPath = dynamicPath_r() + "/AllChannel/";
 		
-		String uploadVideoPath = "C:/final/GitHub/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/";
+		//String uploadVideoPath = "C:/final/GitHub/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/";
+		String uploadVideoPath = dynamicPath_r() + "/AllChannel/";
 		//thumbnail
 		Iterator<String> iterator = mRequest.getFileNames();
 		

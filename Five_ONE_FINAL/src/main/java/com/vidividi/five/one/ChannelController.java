@@ -694,6 +694,7 @@ public class ChannelController {
 			if(!multi.isEmpty()) {
 				String path = "F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/img/channel_profile/" + code;
 				
+				
 				String originName = multi.getOriginalFilename();
 				
 				String saveDB = code + "/" +  originName;
