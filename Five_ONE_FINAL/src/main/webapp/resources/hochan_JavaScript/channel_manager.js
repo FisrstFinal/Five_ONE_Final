@@ -123,6 +123,10 @@ $(function() {
 	$(".bDel").on("click", function() {
 		$(".delicon").toggle();
 	});
+	
+	$(".b123").on("click", function() {
+		console.log("123");
+	});
 });
 
 // 경로
@@ -152,21 +156,21 @@ function showFile() {
 
 
 // 비디오 수정 함수
-function modal(videoCode, channelCode) {
+function videoModify(videoCode, channelCode) {
 	$.ajaxSetup({
 			ContentType: "application/x-www-form-urlencoded;charset=UTF-8", //한글처리
 			type: "post"
 	});
 	
 	$.ajax({
-		url: getContextPath() + "/video_update_modal.do",
+		url: getContextPath() + "/videoModify.do",
 		data: {
 			"video_code" : videoCode,
 			"channl_code": channelCode
 		},
 		datatype: 'html',
 		success: function(data) {
-			$(".modal-content").html(data);
+			$(".video_detail_area"). html(data);
 		},
 		error: function() {
 			console.log(false);

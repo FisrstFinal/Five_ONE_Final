@@ -10,11 +10,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<link rel="stylesheet" href="${path }/resources/hochan_CSS/channel_manager.css" />
-	<link rel="stylesheet" href="${path }/resources/hochan_CSS/uploadBtn.css" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="${path }/resources/hochan_CSS/channel_manager.css"></link>
+	<link rel="stylesheet" href="${path }/resources/hochan_CSS/uploadBtn.css"></link>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css"></link>
 <title>채널 관리 페이지</title>
 </head>
 <body>
@@ -186,14 +185,13 @@
 					  			</c:if>
 					  		</td>
 					  		<td>
-					  			<!-- onclick="modal('${mvdto.video_code}', '${channelOwner.channel_code } ')" data-toggle="modal" data-target="#MoaModal" -->
-					  			<!-- videoDelete('${channelOwner.channel_code}') -->
 					  			<div class="dropdown">
 								  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 								    <i class="bi bi-list-ul"></i>
 								  </button>
 								  <ul class="dropdown-menu">
-								    <li><a class="dropdown-item" onclick="modal('${mvdto.video_code}', '${channelOwner.channel_code } ')" data-toggle="modal" data-target="#MoaModal">수정</a></li>
+								    <li><a class="dropdown-item" onclick="videoModify('${mvdto.video_code}', '${channelOwner.channel_code }')">수정</a></li>
+								    
 								    <li><a class="dropdown-item" onclick="videoDelete('${mvdto.video_code}', '${channelOwner.channel_code }', '${mvdto.video_title }')">삭제</a></li>
 								  </ul>
 								</div>
@@ -208,16 +206,9 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- 모달창 -->
-	<div class="modal fade" id="MoaModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true" data-backdrop="static">
-	  <div class="modal-dialog modal-xl" role="document">
-	    <div class="modal-content">
-	    	
-	    </div>
-	  </div>
-	</div>
-	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/channel_modify.js"></script>
-	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/channel_manager.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_manager.js"></script>
+	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_modify.js"></script>
 	<!-- member js -->
 	<script src="${path}/resources/member/member_js.js"></script>
 </body>

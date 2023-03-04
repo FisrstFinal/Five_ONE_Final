@@ -363,7 +363,7 @@ public class ChannelController {
 	
 	
 	// 영상 수정 모달창
-	@RequestMapping("video_update_modal.do")
+	@RequestMapping("videoModify.do")
 	public String setVideoUpdate(Model model, @RequestParam("video_code") String videoCode, @RequestParam("channl_code") String channelCode, HttpServletResponse response) {
 		response.setContentType("text/html; charset=UTF-8");
 		

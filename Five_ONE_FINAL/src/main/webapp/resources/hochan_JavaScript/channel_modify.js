@@ -40,9 +40,10 @@
 			
 			    reader.fileName = currentFile.name; // 파일 정보.name(이름)
 				
+				$(".imgSrc").attr("src", "/one/resources/img/channel_profile/" + code + "/" + reader.fileName);
 				fileReader.onload = function() {
 					let fileURL = fileReader.result;
-					$(".imgSrc").attr("src", fileURL);
+					
 				}
 				
 				fileReader.readAsDataURL(file);
