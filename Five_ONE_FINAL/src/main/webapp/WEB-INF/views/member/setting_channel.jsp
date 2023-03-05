@@ -30,7 +30,6 @@ $(function(){
 	if ('${MemberCode}' != ''){
 		let channelCode = '${MemberDTO.getMember_rep_channel()}';
 		let memberCode = '${MemberCode}';
-		changeBackColor(channelCode);
 		getChannelList(memberCode);
 	}
 	
@@ -143,6 +142,37 @@ $(function(){
 		margin: 10px;
 		color: lightgray;
 	}
+	
+	img.channel-ribbon-icon {
+		position: absolute; 
+		top:10px; 
+		right: 5px; 
+		width:50px;
+		cursor: pointer;
+		z-index: 999;
+	}
+	
+	img.channel-ribbon-icon.general {
+		filter: opacity(0.3);
+	}
+	
+	img.channel-ribbon-icon.general:hover {
+		filter: opacity(0.3) brightness(1.8);
+	}
+	
+	button.channel-card-btn {
+		color: white;
+		background-color: #fc942c;
+	}
+	
+	button.channel-card-btn:hover {
+		filter: brightness(1.1);
+	}
+	
+	button.channel-card-btn:focus {
+		outline: none;
+	}
+	
 	
 	
 </style>

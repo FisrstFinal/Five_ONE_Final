@@ -35,34 +35,10 @@
 <!-- 자동완성 기능 라이브러리 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<!-- member js -->
-<script src="${path}/resources/member/member_js.js"></script>
-
 <title>Insert title here</title>
-<style type="text/css">
 
-	img.channel-backcolor{
-		border-radius: 100%;
-	}
-
-	#user_popup img.channel-backcolor{
-		width: 22px;
-	}
-	
-	#user_div img.channel-backcolor{
-		width: 40px;
-		height: 40px;
-	}
-
-</style>
 <script type="text/javascript">
 
-	$(function(){
-		if ('${RepChannelCode}' != ''){
-			let channelCode = '${RepChannelCode}';
-			changeBackColor(channelCode);
-		}
-	});
 </script>
 
 </head>
@@ -128,12 +104,7 @@
 				</c:if>
 				
 				<c:if test="${!empty MemberCode }">
-					<c:if test="${RepChannelPsa == default_channel_profile.png}">
-						<img id="user_icon" src="<%=request.getContextPath()%>/resources/img/channel_profile/default_channel_profile.png" class="channel-backcolor">
-					</c:if>
-					<c:if test="${RepChannelPsa != default_channel_profile.png}">
-						<img id="user_icon" src="<%=request.getContextPath()%>/resources/img/channel_profile/${RepChannelPsa }" class="channel-backcolor">
-					</c:if>
+					<img id="user_icon" src="<%=request.getContextPath()%>/resources/img/channel_profile/${RepChannelPsa }" width="40px" height="40px" style="border-radius: 100%;">
 				</c:if>
 				
 				<c:if test="${empty MemberCode }">
@@ -152,7 +123,7 @@
 			<div id="user_popup"> 
 				<ul id="user_list">
 					<li id="userpop_title"><b>
-						<img id="userpop_img" src="${pageContext.request.contextPath}/resources/img/default_channel_profile.png" width="45px" height="45px">
+						<img id="userpop_img" src="${pageContext.request.contextPath}/resources/img/channel_profile/${RepChannelPsa }" width="45px" height="45px" style="border-radius: 100%;">
 						${MemberName }&nbsp;님</b>
 					</li>
 					<hr>
@@ -160,14 +131,14 @@
           <c:set var="ccode" value="${RepChannelCode }" />
 					<li id="userpop_mychannel" onclick="location.href='<%=request.getContextPath() %>/channel.do?mc=${ccode }'">
 					
-					<i class="fa-regular fa-circle-user"></i>&nbsp;&nbsp;내 채널</li>
+					<i class="fa-regular fa-circle-user"></i>&nbsp;&nbsp;마이 채널</li>
 					
 					<li id="userpop_mypage" onclick="location.href='<%=request.getContextPath()%>/myPage_go.do?channel_code=${RepChannelCode}'"> <i class="fa-solid fa-circle-user"></i>&nbsp;&nbsp;마이 페이지</li>
 					
 					<li id="userpop_box" onclick="location.href='<%=request.getContextPath()%>/myPage_go.do?channel_code=${RepChannelCode}'"><i class="fa-regular fa-square-check"></i>&nbsp;&nbsp;보관함</li>
 					<hr>
-					<li onclick="location.href='<%=request.getContextPath()%>/setting.do'"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;계정 설정</li>
-					<li onclick="location.href='<%=request.getContextPath()%>/logout.do'"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;로그아웃</li>		
+					<li id="userpop_setting" onclick="location.href='<%=request.getContextPath()%>/setting.do'"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;계정 설정</li>
+					<li id="userpop_logout" onclick="location.href='<%=request.getContextPath()%>/logout.do'"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;로그아웃</li>		
 				</ul>
 			</div>
 		</c:if>
@@ -347,4 +318,5 @@ $(window).on('load', function () {
 	
 	
 </script>
+
 </html>

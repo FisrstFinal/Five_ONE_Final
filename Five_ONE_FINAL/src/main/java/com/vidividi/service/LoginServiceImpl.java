@@ -1,5 +1,6 @@
 package com.vidividi.service;
 
+import java.io.File;
 import java.security.SecureRandom;
 
 import java.util.Calendar;
@@ -7,14 +8,17 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Service;
 
+import com.vidividi.model.BundleDAO;
 import com.vidividi.model.ChannelDAO;
 import com.vidividi.model.MemberDAO;
+import com.vidividi.variable.BundleDTO;
 import com.vidividi.variable.ChannelDTO;
 import com.vidividi.variable.GoogleLoginDTO;
 import com.vidividi.variable.KakaoLoginDTO;
@@ -32,6 +36,9 @@ public class LoginServiceImpl implements LoginService {
 	private ChannelDAO channelDAO;
 	
 	@Inject
+	private BundleDAO bundledao;
+	
+	@Inject
 	private LoginHistoryService lhservice;
 	
 	@Override
@@ -40,16 +47,20 @@ public class LoginServiceImpl implements LoginService {
 		MemberDTO memberDTO = dao.getMember(dto);
 		
 		if (memberCode != null) {
-			session.setAttribute("MemberCode", memberCode);
-			session.setAttribute("MemberName", memberDTO.getMember_name());
-			session.setAttribute("RepChannelCode", memberDTO.getMember_rep_channel());
-			lhservice.setLoginData(memberCode);
-			return memberCode;
+			int check = dao.checkExpire(memberCode);
+			if (check == 0) {
+				session.setAttribute("MemberCode", memberCode);
+				session.setAttribute("MemberName", memberDTO.getMember_name());
+				session.setAttribute("RepChannelCode", memberDTO.getMember_rep_channel());
+				session.setAttribute("RepChannelPsa", channelDAO.getChannelPsa(memberDTO.getMember_rep_channel()));
+				lhservice.setLoginData(memberCode);
+				return memberCode;
+			}else {
+				return "expired";
+			}
 		}else {
 			return null;
 		}
-		
-		
 	}
 	
 	@Override
@@ -64,8 +75,11 @@ public class LoginServiceImpl implements LoginService {
 			ldto.setPwd(mdto.getMember_pwd());
 			
 			String memberCode = loginCheck(ldto, session);
-			
-			return memberCode;
+			if (memberCode.equals("expired")) {
+				return "expired";
+			}else {
+				return memberCode;
+			}			
 		}else {
 			return null;
 		}
@@ -84,8 +98,11 @@ public class LoginServiceImpl implements LoginService {
 			ldto.setPwd(mdto.getMember_pwd());
 			
 			String memberCode = loginCheck(ldto, session);
-			
-			return memberCode;
+			if (memberCode.equals("expired")) {
+				return "expired";
+			}else {
+				return memberCode;
+			}	
 		}else {
 			return null;
 		}
@@ -103,8 +120,11 @@ public class LoginServiceImpl implements LoginService {
 			ldto.setPwd(mdto.getMember_pwd());
 			
 			String memberCode = loginCheck(ldto, session);
-			
-			return memberCode;
+			if (memberCode.equals("expired")) {
+				return "expired";
+			}else {
+				return memberCode;
+			}	
 		}else {
 			return null;
 		}
@@ -320,11 +340,17 @@ public class LoginServiceImpl implements LoginService {
 		
 		channelDTO.setMember_code(memberCode);
 		channelDTO.setChannel_code(channelCode);
+		String random = String.valueOf((int)((Math.random()*9)+1));
+		channelDTO.setChannel_banner("default_channel_banner-"+random+".png");
+		channelDTO.setChannel_profil("default_channel_profile-"+random+".png");
 		
 		int countChannel = channelDAO.countMemberChannel(memberCode);
+		// 기본 재생목록 추가
+		defaultBundleAdd(channelCode);
 		
 		String channelName = memberName + "님의 "+(countChannel+1)+"번째 채널입니다.";
 		channelDTO.setChannel_name(channelName);
+		
 		
 		return channelDTO;
 	}
@@ -354,4 +380,14 @@ public class LoginServiceImpl implements LoginService {
 		return age;
 	}
 	
+	public void defaultBundleAdd(String channelCode) {
+		String bundleCode = generateBundleCode();
+		
+		BundleDTO bundleDTO = new BundleDTO();
+		bundleDTO.setBundle_code(bundleCode);
+		bundleDTO.setBundle_title("기본재생목록");
+		bundleDTO.setChannel_code(channelCode);
+		
+		bundledao.bundleAdd(bundleDTO);
+	}
 }

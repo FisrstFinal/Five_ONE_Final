@@ -79,6 +79,7 @@ $(function() {
 				$("#floatingTextarea2").val("null");
 			}
 			
+			console.log("test");
 			// 공개 여부
 			const radioOpenId = $('input[name=flexRadioDefault_openClose]:checked').attr("id");
 			const radioOpen = $("label[for='" + radioOpenId + "']");
@@ -92,7 +93,6 @@ $(function() {
 			
 			const bundle = $("#bundleCheck option:selected").text();
 			const bundleTag = `<input type='hidden' name='bundleText' value='${bundle}'>`;
-			
 			
 			$(".age_select").append(inputAge);
 			$(".open_check").append(inputOpen);
@@ -114,9 +114,6 @@ $(function() {
 				$(".img_field").val("파일을 선택해주세요");
 			}
 			
-			
-			console.log($("#video_name").val());
-			console.log($(".img_field").val());
 			$("#formData").submit();
 		} else {
 			alert("제목을 입력 안하셨어요 :)");
@@ -125,6 +122,10 @@ $(function() {
 	
 	$(".bDel").on("click", function() {
 		$(".delicon").toggle();
+	});
+	
+	$(".b123").on("click", function() {
+		console.log("123");
 	});
 });
 
@@ -155,20 +156,21 @@ function showFile() {
 
 
 // 비디오 수정 함수
-function modal(code) {
+function videoModify(videoCode, channelCode) {
 	$.ajaxSetup({
 			ContentType: "application/x-www-form-urlencoded;charset=UTF-8", //한글처리
 			type: "post"
 	});
 	
 	$.ajax({
-		url: getContextPath() + "/video_update_modal.do",
+		url: getContextPath() + "/videoModify.do",
 		data: {
-			"video_code" : code
+			"video_code" : videoCode,
+			"channl_code": channelCode
 		},
 		datatype: 'html',
 		success: function(data) {
-			$(".modal-content").html(data);
+			$(".video_detail_area"). html(data);
 		},
 		error: function() {
 			console.log(false);
@@ -307,7 +309,7 @@ function bundleDetail(bundle_code) {
 					let li = "";
 					
 					$(list).each(function() {
-						li += '<tr onclick="modal(&quot;'+ this.video_code +'&quot;)" data-toggle="modal" data-target="#MoaModal">';
+						li += '<tr onclick="modal(&quot;'+ this.video_code +'&quot;, &quot;'+ $("#oCc").val() +'&quot;)" data-toggle="modal" data-target="#MoaModal">';
 						if(this.video_img == undefined) {
 							li += '<td><div><video class="show_file"><source src="'+ getContextPath()+'/resources/AllChannel/'+ this.channel_code + '/' + this.video_title +'.mp4"></video></div>';							
 						} else if(this.video_img != undefined) {
@@ -332,10 +334,21 @@ function bundleDetail(bundle_code) {
 						} else {
 							let good = this.video_good;
 							let bad = this.video_bad;
-							console.log(good + " " + bad);
+				
 							let answer = (good - bad) / bad;
 							li += '<td>' + answer +'</td>';
 						}
+						li += '<td>';
+						li += '<div class="dropdown">';
+						li += '<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">';
+						li += ' <i class="bi bi-list-ul"></i>';
+						li += '</button>';
+						li += '<ul class="dropdown-menu">';						
+						li += '<li><a class="dropdown-item" onclick="modal(&quot;'+ this.video_code +'&quot;, &quot;'+ this.channel_code +'&quot;)" data-toggle="modal" data-target="#MoaModal">수정</a></li>';
+						li += '<li><a class="dropdown-item" onclick="videoDelete(&quot;' + this.video_cdoe + '&quot;, &quot;' + this.channel_code + '&quot;, &quot' + this.video_title + '&quot;)">삭제</a></li>';
+						li += '</ul>';
+						li += '</div>';
+						li += '</td>';
 						li += '</tr>'
 					});
 					$(".manager_tbody").html(li).trigger("create");
@@ -347,3 +360,99 @@ function bundleDetail(bundle_code) {
 		});
 		
 	}
+	
+function changeBtn() {
+	$("#videoMake").click();
+}
+
+function videoDelete(videoCode, channelCode, title) {
+	if(!(confirm('영상을 삭제하면 다시 불러올 수 없습니다. 그래도 삭제하시겠습니까?'))) {
+		
+	} else {
+		$.ajax({
+		url: getContextPath() + "/videoDelete.do",
+		data: {
+			"video_code": videoCode,
+			"channelCode": channelCode,
+			"title": title
+		},
+		datatype: "json",
+		success: function(data) {
+			let check = data;
+				
+				if(check == "[]") {
+					loading_playlist = false;
+				} else {
+					let list = JSON.parse(data);
+					let li = "";
+					
+					$(list).each(function() {
+						li += '<tr onclick="modal(&quot;'+ this.video_code +'&quot;, &quot;'+ $("#oCc").val() +'&quot;)" data-toggle="modal" data-target="#MoaModal">';
+						if(this.video_img == undefined) {
+							li += '<td><div><video class="show_file"><source src="'+ getContextPath()+'/resources/AllChannel/'+ this.channel_code + '/' + this.video_title +'.mp4"></video></div>';							
+						} else if(this.video_img != undefined) {
+							li += '<td><div><img clss="show_file" src="' + getContextPath() + '/resources/AllChannel/'+ this.channel_code + '/thumbnail/' + this.video_img + '" style="background-size: cover; width: 80%; height: 80px;"></div></td>';
+						}
+						
+						li += '<td>'+ this.video_title +'</td>';
+						if(this.video_open == 1) {
+							li += '<td>공개</td>';
+						} else if(this.video_open == 0) {
+							li += '<td>비공개</td>';
+						}
+						if(this.video_age == "true") {
+							li += '<td>아동용</td>';
+						} else {
+							li += '<td>성인용</td>';
+						}
+						li += '<td>'+ this.video_view_cnt +'</td>';
+						li += '<td>' + this.video_regdate + '</td>';
+						if(this.video_good == 0) {
+							li += '<td>' + 0% + '</td>';
+						} else {
+							let good = this.video_good;
+							let bad = this.video_bad;
+				
+							let answer = (good - bad) / bad;
+							li += '<td>' + answer +'</td>';
+						}
+						li += '<td>';
+						li += '<div class="dropdown">';
+						li += '<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">';
+						li += ' <i class="bi bi-list-ul"></i>';
+						li += '</button>';
+						li += '<ul class="dropdown-menu">';						
+						li += '<li><a class="dropdown-item" onclick="modal(&quot;'+ this.video_code +'&quot;, &quot;'+ this.channel_code +'&quot;)" data-toggle="modal" data-target="#MoaModal">수정</a></li>';
+						li += '<li><a class="dropdown-item" onclick="videoDelete(&quot;' + this.video_cdoe + '&quot;, &quot;' + this.channel_code + '&quot;, &quot' + this.video_title + '&quot;)">삭제</a></li>';
+						li += '</ul>';
+						li += '</div>';
+						li += '</td>';
+						li += '</tr>'
+					});
+					$(".manager_tbody").html(li).trigger("create");
+				}
+		},
+		error: function() {
+			alert("오류");
+		}
+	});	
+	}
+}
+
+function managerModify(channelCode) {
+	
+	$.ajax({
+		url: getContextPath() + "/channelModify.do",
+		data: {
+			"channelCode": channelCode	
+		},
+		datatype: "html",
+		success: function(data) {
+			$(".video_detail_area").html(data);
+		},
+		error: function() {
+			alert('채널 수정 페이지 오류');
+			location.reload();
+		}
+	});
+}

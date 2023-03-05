@@ -137,7 +137,8 @@ function getSearchVideoList_popular(keyword, field, option, page_pop){
 				$(data).each(function(){
 				div += "<div id='watch_box' class='content_box'>";
 				div += "<div class='video_box'>";
-				div += "<video class='test_video' width='320px' height='180px' src='https://blog.kakaocdn.net/dn/bzobdO/btrSnWRB7qk/LAZKJtMKBI4JPkLJwSKCKK/1234.mp4?attach=1&knm=tfile.mp4' controls></video>";
+				
+				div += "<video class='test_video' width='320px' height='180px' src='"+getContextPath()+"/resources/AllChannel/"+this.channel_code+"/"+this.video_title+".mp4' controls></video>";
 					div += "<div class='video_pbox'>";
 					
 						//전송용 비디오 코드
@@ -145,7 +146,7 @@ function getSearchVideoList_popular(keyword, field, option, page_pop){
 						
 						//비디오 제목 + 채널 프로필 
 						div += "<p class = 'video_title_p'>"+ "<a href='<%=request.getContextPath() %>/watch.do?video_code=" + this.video_code + "'>"
-								+ "<img class='channel_profile' src='" + getContextPath() + "/resources/img/" + this.channel_profil+ "'>"
+								+ "<img class='channel_profile' src='" + getContextPath() + "/resources/img/channel_profile/" + this.channel_profil+ "'>"
 								+ this.video_title + "</a> </p>" + "<button class='play_list_plus' onclick='location.href='#''> <i class='fa-solid fa-plus'></i> </button>";
 						
 						//재생목록 추가 버튼 클릭 시 팝업
@@ -232,7 +233,7 @@ function getSearchVideoList_popular(keyword, field, option, page_pop){
 				$(data).each(function(){
 					div += "<div id='watch_box' class='content_box'>";
 					div += "<div class='video_box'>";
-					div += "<video class='test_video' width='320px' height='180px' src='https://blog.kakaocdn.net/dn/bzobdO/btrSnWRB7qk/LAZKJtMKBI4JPkLJwSKCKK/1234.mp4?attach=1&knm=tfile.mp4' controls></video>";
+					div += "<video class='test_video' width='320px' height='180px' src='"+getContextPath()+"/resources/AllChannel/"+this.channel_code+"/"+this.video_title+".mp4' controls></video>";
 						div += "<div class='video_pbox'>";
 						
 							//전송용 비디오 코드
@@ -240,7 +241,7 @@ function getSearchVideoList_popular(keyword, field, option, page_pop){
 							
 							//비디오 제목 + 채널 프로필 
 							div += "<p class = 'video_title_p'>"+ "<a href='<%=request.getContextPath() %>/watch.do?video_code=" + this.video_code + "'>"
-									+ "<img class='channel_profile' src='" + getContextPath() + "/resources/img/" + this.channel_profil+ "'>"
+									+ "<img class='channel_profile' src='" + getContextPath() + "/resources/img/channel_profile/" + this.channel_profil+ "'>"
 									+ this.video_title + "</a> </p>" + "<button class='play_list_plus' onclick='location.href='#''> <i class='fa-solid fa-plus'></i> </button>";
 							
 							//재생목록 추가 버튼 클릭 시 팝업
