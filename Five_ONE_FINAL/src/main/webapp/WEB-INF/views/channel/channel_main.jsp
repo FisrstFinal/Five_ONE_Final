@@ -34,7 +34,9 @@
 	<jsp:include page="../include/top_include.jsp"/>
 	<jsp:include page="../include/side_include.jsp"/>
 	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/channel.js"></script>
-	<img src="${path }/resources/img/channel_banner/${owner.channel_banner}" id="channel_banner" class="col-10 img-fluid mb-3" style="max-width: 100%; max-height: 423px; border: 1px solid;" alt="...">
+	<div>
+		<img src="${path }/resources/img/channel_banner/${owner.channel_banner}" id="channel_banner" class="col-12 img-fluid mb-3" style="max-height: 423px; border: 1px solid;" alt="...">
+	</div>
 	<div class="container text-center mb-3">
 	  <div class="row mb-3">
 	    <div class="col-lg-2">
@@ -130,7 +132,7 @@
 				  			<c:if test="${!empty lastUpVideo.video_img }" >
 				  			</c:if>
 				  			<video autoplay loop class="embed-responsive-item" width="400px" height="300px" controls>
-									<source src="${path }/resources/AllChannel/${owner.channel_code  }/${lastUpVideo.video_title}.mp4" type="video/mp4">
+								<source src="${path }/resources/AllChannel/${owner.channel_code  }/${lastUpVideo.video_title}.mp4" type="video/mp4">
 							</video>
 				  		</c:if>
 				  		<c:if test="${empty lastUpVideo }">
