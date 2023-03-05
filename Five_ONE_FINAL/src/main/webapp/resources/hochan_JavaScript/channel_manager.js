@@ -79,6 +79,7 @@ $(function() {
 				$("#floatingTextarea2").val("null");
 			}
 			
+			console.log("test");
 			// 공개 여부
 			const radioOpenId = $('input[name=flexRadioDefault_openClose]:checked').attr("id");
 			const radioOpen = $("label[for='" + radioOpenId + "']");
@@ -92,7 +93,6 @@ $(function() {
 			
 			const bundle = $("#bundleCheck option:selected").text();
 			const bundleTag = `<input type='hidden' name='bundleText' value='${bundle}'>`;
-			
 			
 			$(".age_select").append(inputAge);
 			$(".open_check").append(inputOpen);

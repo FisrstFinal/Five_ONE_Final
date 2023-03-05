@@ -18,24 +18,18 @@
 <body>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/channel_manager.js"></script>
 	<!-- Vertically centered scrollable modal -->
 	<div class="video-modify">
 		<form method="post" id="formData" enctype="multipart/form-data" action="<%=request.getContextPath() %>/video_update_success.do?videoCode=${playList.video_code }">
 		<input type="hidden" name="subVideoCode" value="${playList.video_code }">
 		<input type="hidden" name="channelCode" value="${playList.channel_code }">
-	  	<div class="container text-center">
-	  	  <div class="row">
-		      <div class="col-md-2">
-		      	<div class="upload-font">V I D I D I</div>
-		      </div>
-		      <div class="col-md-2 ms-auto">
-		      	<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		   </div>
-		   
+	  	<div class="container text-center img-thumbnail">
 		  <div class="row">
-		    <div class="col-6">
+		  	<div class="col-1" onclick="location.href='<%=request.getContextPath() %>/channel_manager.do?code=${playList.channel_code }'">
+		  		<i class="bi bi-arrow-left"></i>
+		  	</div>
+		    <div class="col-5">
 		     <div id="file_area">
 		     	<div>동 영 상</div>
 			      <video id="upload_file_btn" class="update_modal">
@@ -146,9 +140,7 @@
 				</div>
 		  	</div>
 		  	<div class="col-2 ">
-		  		<button type="button" class="btn btn-primary up_btn">수 정</button> <!-- submit_btn -->
-		  		&nbsp;
-		  		<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">취 소</button>
+		  		<button type="button" class="btn btn-primary up_btn">수 정</button>
 		  	</div>
 		  </div>
 		  <hr>
@@ -178,7 +170,5 @@
 		</div> 	
 		</form>		  		  		  		  	
 	</div>
-	
-	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/channel_manager.js"></script>
 </body>
 </html>
