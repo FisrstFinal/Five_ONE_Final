@@ -25,6 +25,23 @@
 		<input type="hidden" name="subVideoCode" value="${playList.video_code }">
 		<input type="hidden" name="channelCode" value="${playList.channel_code }">
 	  	<div class="container text-center img-thumbnail">
+	  	  <div class="row">
+	  	  	<div class="col-3">
+		  	  <div id="file_area">
+			      <video id="upload_file_btn" class="update_modal">
+			      	<source class="source_tag" src="${path }/resources/AllChannel/${playList.channel_code}/${playList.video_title}.mp4" type="video/mp4">
+			      </video>
+		     </div>
+		      <input id="video_name" class="video_field" name="video_name" type="text" value="${playList.video_title}" hidden readonly>
+		      <input id="input_file" type="file" hidden name="file_mv">
+	  	  	</div>
+	  	  </div>
+	  	  
+	  	  
+	  	  
+	  	  
+	  	  
+	  	  
 		  <div class="row">
 		  	<div class="col-1" onclick="location.href='<%=request.getContextPath() %>/channel_manager.do?code=${playList.channel_code }'">
 		  		<i class="bi bi-arrow-left"></i>
