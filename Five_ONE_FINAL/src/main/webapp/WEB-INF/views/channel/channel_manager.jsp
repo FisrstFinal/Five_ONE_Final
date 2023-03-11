@@ -6,6 +6,7 @@
 <c:set var="channelOwner" value="${currentOwner }" />
 <c:set var="mvlist" value="${mvList }" />
 <c:set var="bundle" value="${bundleList }" />
+<c:set var="positionPath" value="F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,10 +143,10 @@
 					  	<tr>
 					  		<td>
 					  			<c:if test="${empty mvdto.video_img}">
-					   				<div><video class="show_file"><source src="${path }/resources/AllChannel/${channelOwner.channel_code}/${mvdto.video_title }.mp4"></video></div>
+					   				<div><video class="show_file"><source src="${path}/resources/AllChannel/${channelOwner.channel_code}/${mvdto.video_title }.mp4"></video></div>
 					   			</c:if>
 					   			<c:if test="${!empty mvdto.video_img}">
-							    	<div><img class="show_file" src="${path }/resources/AllChannel/${channelOwner.channel_code}/thumbnail/${mvdto.video_img }"></div>					   				
+							    	<div><img class="show_file" src="${path}/resources/AllChannel/${channelOwner.channel_code}/thumbnail/${mvdto.video_img }"></div>					   				
 					   			</c:if>
 					  		</td>
 					  		<td>

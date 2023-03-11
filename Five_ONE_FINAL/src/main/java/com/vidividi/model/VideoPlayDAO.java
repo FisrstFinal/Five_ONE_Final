@@ -15,5 +15,4 @@ public interface VideoPlayDAO {
 	
 	public int updateUploadVideo(VideoPlayDTO videodto, PlaylistDTO playdto);
 	
-	
 }

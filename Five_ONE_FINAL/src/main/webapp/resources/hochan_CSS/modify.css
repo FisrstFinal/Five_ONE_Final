@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+#upload_file_btn {
+	width: 350px;
+	height: 180px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	flex-direction: column;
+}
+
+/* 영상 수정 라인 */
+.hrtag {
+	border: solid 2px green;
+}
+
+.modify-btn {
+	border: none;
+    text-decoration: underline;
+}
+
+.btn-position {
+	float: right;
+}
+
