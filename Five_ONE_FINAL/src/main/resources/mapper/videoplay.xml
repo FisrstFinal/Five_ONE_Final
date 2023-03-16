@@ -31,4 +31,5 @@
   			playlist_code = #{playlist_code}
   		) where video_code = #{video_code}
   	</update>
+  	
   </mapper>

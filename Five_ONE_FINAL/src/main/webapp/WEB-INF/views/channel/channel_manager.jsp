@@ -6,6 +6,7 @@
 <c:set var="channelOwner" value="${currentOwner }" />
 <c:set var="mvlist" value="${mvList }" />
 <c:set var="bundle" value="${bundleList }" />
+<c:set var="positionPath" value="F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,13 +117,14 @@
 		    	<thead>
 				  <tr>
 				  	<th class="col-4">동영상</th>
-				  	<th class="col-3">제목</th>
+				  	<th class="col-2">제목</th>
 				  	<th class="col-1" style="font-size: 14px;">공개 상태</th>
 				  	<th class="col-1" style="font-size: 14px;">제한 사항</th>
 				  	<th class="col-1">날짜</th>
 				  	<th class="col-1">조회수</th>
 				  	<th class="col-1">좋아요</th>
-				  	<th class="col-1">&nbsp;&nbsp;관리</th>
+				  	<th class="col-1">수정</th>
+				  	<th class="col-1">삭제</th>
 				  </tr>
 				</thead>
 			    <c:if test="${empty mvlist }">
@@ -141,10 +143,10 @@
 					  	<tr>
 					  		<td>
 					  			<c:if test="${empty mvdto.video_img}">
-					   				<div><video class="show_file"><source src="${path }/resources/AllChannel/${channelOwner.channel_code}/${mvdto.video_title }.mp4"></video></div>
+					   				<div><video class="show_file"><source src="${path}/resources/AllChannel/${channelOwner.channel_code}/${mvdto.video_title }.mp4"></video></div>
 					   			</c:if>
 					   			<c:if test="${!empty mvdto.video_img}">
-							    	<div><img class="show_file" src="${path }/resources/AllChannel/${channelOwner.channel_code}/thumbnail/${mvdto.video_img }"></div>					   				
+							    	<div><img class="show_file" src="${path}/resources/AllChannel/${channelOwner.channel_code}/thumbnail/${mvdto.video_img }"></div>					   				
 					   			</c:if>
 					  		</td>
 					  		<td>
@@ -185,16 +187,18 @@
 					  			</c:if>
 					  		</td>
 					  		<td>
-					  			<div class="dropdown">
-								  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								    <i class="bi bi-list-ul"></i>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a class="dropdown-item" onclick="videoModify('${mvdto.video_code}', '${channelOwner.channel_code }')">수정</a></li>
-								    
-								    <li><a class="dropdown-item" onclick="videoDelete('${mvdto.video_code}', '${channelOwner.channel_code }', '${mvdto.video_title }')">삭제</a></li>
-								  </ul>
-								</div>
+					  			<div>
+					  				<button class="modify_btn" onclick="videoModify('${mvdto.video_code}', '${channelOwner.channel_code }')" type="button">
+					  					<i class="bi bi-gear"></i>
+							    	</button>
+					  			</div>
+					  		</td>
+					  		<td>
+					  			<div>
+			  						<button class="modify_btn" onclick="videoDelete('${mvdto.video_code}', '${channelOwner.channel_code }', '${mvdto.video_title }')" type="button">
+			  							<i class="bi bi-send-x-fill"></i>
+			  						</button>
+					    		</div>
 					  		</td>
 					  	</tr>
 					  </c:forEach>

@@ -95,6 +95,18 @@
 	margin: 4px;
 }
 
+/* 관리, 삭제 버튼 */
+.modify_btn {
+	border: none;
+	background-color: white;
+	
+	transition: all 0.2s linear;
+}
+
+.modify_btn:hover {
+	 transform: scale(1.4);
+}
+
 /* 영상 썸네일 이미지 */
 .show_file {
 	background-size: cover;
@@ -125,7 +137,4 @@
 	padding-top: 10%;
 }
 
-.btn-success {
-	
-}
-
+/* 영상 수정 CSS */

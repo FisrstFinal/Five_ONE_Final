@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.jsp.PageContext;
 
 import org.json.simple.JSONArray;
 import org.json.JSONObject;
@@ -803,6 +803,56 @@ public class ChannelController {
 		return area.trim();
 		
 	}
+	
+	/* mcu 채널 영상 수정  */
+	@ResponseBody
+	@RequestMapping(value = "movieUpload.do")
+	public String movieModify(@RequestParam(value = "file_upload", required = false) MultipartFile multi, 
+			@RequestParam("chCode") String chCode, 
+			@RequestParam("mvCode") String mvCode,
+			HttpServletRequest request) {
+
+		String parentPath = "F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/" + chCode;
+		
+		try {
+			if(!multi.isEmpty()) {
+				
+				VideoPlayDTO playDTO = new VideoPlayDTO();
+				playDTO = videodao.getVideoOne(mvCode);
+				
+				String fileName = multi.getOriginalFilename();
+				
+				
+				
+				File dir = new File(parentPath); // 경로 설정
+				if(!(dir.exists())) {
+					dir.mkdir();
+				}
+				
+				// 현재 저장되어 있는 영상 삭제
+				File currentfile = new File(parentPath, playDTO.getVideo_title() + ".mp4");
+				System.out.println(currentfile.getAbsolutePath());
+				
+				if(currentfile.exists()) {
+					currentfile.delete();
+					System.out.println("삭제 완료");
+					// 수정한 영상을 업로드
+					
+					File originFile = new File(parentPath, playDTO.getVideo_title() + ".mp4");
+					multi.transferTo(originFile);
+					System.out.println("업로드 완료");
+					return "업로드 완료: " + fileName;
+				}
+			} else {
+				return "업로드 실패";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "File Exception";
+	}
+	
 	//=========================== 채널 수정 ==================================
 	// 영상 이름 받아오기
 	public String[] fileName(MultipartHttpServletRequest mRequest) {
@@ -879,6 +929,4 @@ public class ChannelController {
 		out.println("history.back();");
 		out.println("</script>");
 	}
-	
-
 }
