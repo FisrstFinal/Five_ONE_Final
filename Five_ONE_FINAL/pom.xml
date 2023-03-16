@@ -60,6 +60,13 @@
 		    <artifactId>ojdbc10</artifactId>
 		    <version>19.16.0.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/springloaded -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>springloaded</artifactId>
+		    <version>1.2.8.RELEASE</version>
+		</dependency>
 
 				
 		 <!-- Spring jdbc 라이브러리 -->	
