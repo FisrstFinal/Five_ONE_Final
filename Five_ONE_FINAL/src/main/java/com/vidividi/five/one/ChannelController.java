@@ -73,7 +73,7 @@ public class ChannelController {
 		return request.getServletContext().getRealPath("resources");
 	}
 	
-	
+	// 채널 메인 컨트롤러
 	@RequestMapping("channel.do")
 	public String channel(@RequestParam("mc") String channelCode,HttpServletRequest request, HttpSession session, Model model) throws Exception {
 		
@@ -114,6 +114,7 @@ public class ChannelController {
 		}
 	}
 	
+	// 메인 채널 > 재생목록탭
 	@ResponseBody
 	@RequestMapping(value = "bundleSetList.do", produces = "application/text; charset=UTF-8")
 	public String bundleVideoList(@RequestParam("bundle_Code") String bundleCode, HttpServletResponse response, HttpServletRequest request) {
@@ -148,6 +149,7 @@ public class ChannelController {
 		return jsonArray.toString();
 	}
 	
+	// 메인 채널 >> 
 	@ResponseBody
 	@RequestMapping(value = "bundle_bundle_list.do", produces = "application/text; charset=UTF-8")
 	public String bundleBundleList(@RequestParam("bundleCode") String code, HttpServletResponse response) {
@@ -163,7 +165,7 @@ public class ChannelController {
 		return video_code;
 	}
 	
-	// 영상 업로드
+	// 영상 업로드 버튼
 	@RequestMapping("movie_upload.do")
 	public String modalUploadPage(HttpServletRequest request, HttpSession session, Model model, @RequestParam("code") String ownerCode) {
 		// 업로드 모달창
@@ -224,87 +226,94 @@ public class ChannelController {
 		} else {
 			if(uploadFile.fileUpload(mRequest, channelCode.trim(), title.trim())) {
 				System.out.println("성공");
+				
+				String cookingVideoCode = service.generateVideoCode(); // 비디오코드
+				
+				int category = Integer.parseInt(categoryList);
+				String img = name[1];
+				
+				// video_play 테이블
+				VideoPlayDTO playdto = new VideoPlayDTO();
+				playdto.setVideo_code(cookingVideoCode.trim());
+				playdto.setChannel_code(channelCode.trim()); // 채널 코드
+				playdto.setVideo_title(title.trim());
+				playdto.setVideo_cont(context.trim());
+				if(!(img.equals(""))) {
+					playdto.setVideo_img(title + ".png");			
+				} else {
+					playdto.setVideo_img("");
+				}
+				playdto.setVideo_hash(null);
+				playdto.setCategory_code(category); // value값 가져온다
+				
+				// playlist 테이블
+				PlaylistDTO playbundledto = new PlaylistDTO();
+				playbundledto.setChannel_code(channelCode.trim());
+				playbundledto.setPlaylist_title(bundleText.trim()); // 재생목록 이름
+				playbundledto.setPlaylist_code(bundleCode.trim()); // 재생목록 코드
+				playbundledto.setVideo_code(cookingVideoCode.trim());
+				
+				
+				String age_select = age.trim().substring(0, 1); // 수정
+				String open_select = open.trim().substring(0, 1); // 수정
+				
+				switch(age.trim()) {
+					case "예 아동용 입니다":
+						playdto.setVideo_age("t");
+					break;
+					case "아니요 성인용 입니다":
+						playdto.setVideo_age("f");
+					break;
+					case "예":
+						playdto.setVideo_age("t");
+					break;
+					case "아":
+						playdto.setVideo_age("f");
+					break;
+					default:
+						out.println("<script>"
+								+ "alert('나이 스크립트 오류');");
+						out.println("history.back();"
+								+ "</script>");
+				}
+				
+				if(open.trim().equals("시청자들과 같이 보기")) {
+					//bundledto.setPlaylist_open(1); // 재생목록 공개
+					playdto.setVideo_open(1); // 비디오 공개
+				} else if(open.trim().equals("나만 보기")) {
+					//bundledto.setPlaylist_open(0); // 재생목록 비공개
+					playdto.setVideo_open(0); // 비디오 비공개
+				} else if(open_select.equals("시")) {
+					playdto.setVideo_open(1); // 비디오 공개
+				} else if(open_select.equals("나")) {
+					playdto.setVideo_open(0); // 비디오 공개
+				} else {
+					out.println("<script>"
+							+ "alert('공개 스크립트 오류');");
+					out.println("history.back();"
+							+ "</script>");
+				}
+				
+				
+				int check = this.dao.setVideoUpload(playdto, playbundledto);
+				
+				
+				if(check > 0 ) {
+					out.println("<script>"
+							+ "alert('업로드 완료');"
+							+ "location.href='" + request.getContextPath() +"/channel.do?mc="+ channelCode +"';");
+					out.println("</script>");
+				} else {
+					out.println("<script>"
+							+ "alert('업로드 실패');"
+							+ "history.bakc();");
+					out.println("</script>");
+				}
 			} else {
 				System.out.println("실패");
 			}
 			
-			String cookingVideoCode = service.generateVideoCode(); // 비디오코드
 			
-			int category = Integer.parseInt(categoryList);
-			String img = name[1];
-			
-			// video_play 테이블
-			VideoPlayDTO playdto = new VideoPlayDTO();
-			playdto.setVideo_code(cookingVideoCode.trim());
-			playdto.setChannel_code(channelCode.trim()); // 채널 코드
-			playdto.setVideo_title(title.trim());
-			playdto.setVideo_cont(context.trim());
-			if(!(img.equals(""))) {
-				playdto.setVideo_img(title + ".png");			
-			} else {
-				playdto.setVideo_img("");
-			}
-			playdto.setVideo_hash(null);
-			playdto.setCategory_code(category); // value값 가져온다
-			
-			// playlist 테이블
-			PlaylistDTO playbundledto = new PlaylistDTO();
-			playbundledto.setChannel_code(channelCode.trim());
-			playbundledto.setPlaylist_title(bundleText.trim()); // 재생목록 이름
-			playbundledto.setPlaylist_code(bundleCode.trim()); // 재생목록 코드
-			playbundledto.setVideo_code(cookingVideoCode.trim());
-			
-			
-			String age_select = age.trim().substring(0, 1); // 수정
-			String open_select = open.trim().substring(0, 1); // 수정
-			
-			if(age.trim().equals("예 아동용 입니다")) {
-				playdto.setVideo_age("t");
-			} else if(age.trim().equals("아니요 성인용 입니다")) {
-				playdto.setVideo_age("f");
-			} else if(age_select.equals("예")) { // 수정필요
-				playdto.setVideo_age("t");
-			} else if(age_select.equals("아")) {
-				playdto.setVideo_age("f");
-			} else {
-				out.println("<script>"
-						+ "alert('나이 스크립트 오류');");
-				out.println("history.back();"
-						+ "</script>");
-			}
-			
-			if(open.trim().equals("시청자들과 같이 보기")) {
-				//bundledto.setPlaylist_open(1); // 재생목록 공개
-				playdto.setVideo_open(1); // 비디오 공개
-			} else if(open.trim().equals("나만 보기")) {
-				//bundledto.setPlaylist_open(0); // 재생목록 비공개
-				playdto.setVideo_open(0); // 비디오 비공개
-			} else if(open_select.equals("시")) {
-				playdto.setVideo_open(1); // 비디오 공개
-			} else if(open_select.equals("나")) {
-				playdto.setVideo_open(0); // 비디오 공개
-			} else {
-				out.println("<script>"
-						+ "alert('공개 스크립트 오류');");
-				out.println("history.back();"
-						+ "</script>");
-			}
-			
-			
-			int check = this.dao.setVideoUpload(playdto, playbundledto);
-			
-			
-			if(check > 0 ) {
-				out.println("<script>"
-						+ "alert('업로드 완료');"
-						+ "location.href='" + request.getContextPath() +"/channel.do?mc="+ channelCode +"';");
-				out.println("</script>");
-			} else {
-				out.println("<script>"
-						+ "alert('업로드 실패');"
-						+ "history.bakc();");
-				out.println("</script>");
-			}
 		} // repCode == channel_code
 	}
 	
