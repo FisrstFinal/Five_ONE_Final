@@ -32,4 +32,7 @@
   		) where video_code = #{video_code}
   	</update>
   	
+  	<update id="updateVideo" parameterType="videoplayDTO">
+  		update video_play set video_title = #{video_title} where video_code = #{video_code}
+  	</update>
   </mapper>

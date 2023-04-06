@@ -15,4 +15,9 @@ public interface VideoPlayDAO {
 	
 	public int updateUploadVideo(VideoPlayDTO videodto, PlaylistDTO playdto);
 	
+	// 영상 수정
+	public int updateVideo(VideoPlayDTO videoDTO);
+	
+	// 영상 내용 수정
+	public int contModify(VideoPlayDTO videoDTO);
 }

@@ -16,7 +16,9 @@ $(function() {
 		 $("#file_mv").click();			
 		}
 		
-	 }); 
+	 });
+	 
+	  
 });
  
 const movieArea = document.querySelector("#movie_area");
@@ -68,3 +70,57 @@ const movieArea = document.querySelector("#movie_area");
 		 alert('mp4, wmv, avi, mkv 확장자 영상만 업로드 가능해요!');
 	 }
 });
+
+/* 영상 제목 변경 */
+function nameModify(videoCode, currentTitle) {
+	if(!(confirm('제목을 수정하시겠습니까?'))) {
+		$('.title').attr('value', currentTitle);
+	} else {
+		var title = $("#exampleDataList").val();
+		
+		$.ajax({
+			url: "nameModify.do",
+			type: "POST",
+			data: {
+				"videoTitle": title,
+				"videoCode": videoCode
+			},
+			datatype: text,
+			success: function(e) {
+				alert('제목 수정 완료');
+				$('#exampleDataList').attr('value', e);
+			},
+			error: function(e) {
+				alert('제목 수정 실패');
+				$('#exampleDataList').attr('value', current-title);
+			}
+		});
+	}
+}
+
+/* 영상 내용 변경 */
+function AreaModify(videoCode, currentArea) {
+	if(!(confirm('내용을 수정하시겠습니까?'))) {
+		
+	} else {
+		var cont = $("#floatingTextarea2").val();
+		
+		$.ajax({
+			url: "contentModify.do",
+			type: "POST",
+			data: {
+				"videoCode": videoCode,
+				"contArea": cont
+			},
+			datatype: text,
+			success: function(e) {
+				alert('내용 수정 완료');
+				$('#floatingTextarea2').attr('value', e);
+			},
+			error: function(e) {
+				alert('내용 수정 실패');
+				$('#floatingTextarea2').attr('value', currentArea);
+			}
+		});
+	}
+}

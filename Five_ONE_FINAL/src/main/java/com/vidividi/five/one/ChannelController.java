@@ -32,6 +32,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.api.client.http.HttpResponse;
 import com.vidividi.model.BundleDAO;
 import com.vidividi.model.ChannelDAO;
 import com.vidividi.model.VideoPlayDAO;
@@ -853,6 +854,56 @@ public class ChannelController {
 		return "File Exception";
 	}
 	
+	// 영상 이름, 내용 등 수정
+	@RequestMapping(value = "nameModify.do")
+	public String nameModify(@RequestParam("videoTitle") String videoTitle, @RequestParam("videoCode") String videoCode, HttpServletResponse response) {
+		VideoPlayDTO videoDto = new VideoPlayDTO();
+		videoDto.setVideo_code(videoCode);
+		videoDto.setVideo_title(videoTitle);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			if(videodao.updateVideo(videoDto) > 0) {
+				return videoTitle;			
+			} else {
+				out.println("<script>");
+				out.println("alert('수정 오류')");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "Name Exception";
+	}
+	
+	@RequestMapping(value = "contentModify.do")
+	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
+		VideoPlayDTO videoDto = new VideoPlayDTO();
+		videoDto.setVideo_code(videoCode);
+		videoDto.setVideo_cont(cont);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			if(videodao.contModify(videoDto) > 0) {
+				return cont;
+			} else {
+				out.println("<script>");
+				out.println("alert('수정 오류')");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "Area Exception";
+	}
+	
+	
 	//=========================== 채널 수정 ==================================
 	// 영상 이름 받아오기
 	public String[] fileName(MultipartHttpServletRequest mRequest) {
@@ -930,3 +981,4 @@ public class ChannelController {
 		out.println("</script>");
 	}
 }
+

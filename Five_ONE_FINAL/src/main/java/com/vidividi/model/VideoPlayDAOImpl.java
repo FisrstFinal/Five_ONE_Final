@@ -35,4 +35,15 @@ public class VideoPlayDAOImpl implements VideoPlayDAO {
 		}
 		return check;
 	}
+	
+	@Override
+	public int updateVideo(VideoPlayDTO videoDTO) {
+		return this.session.update("updateVideo", videoDTO);
+	}
+	
+	@Override
+	public int contModify(VideoPlayDTO videoDTO) {
+		return this.session.update("contModify", videoDTO);
+	}
+	
 }

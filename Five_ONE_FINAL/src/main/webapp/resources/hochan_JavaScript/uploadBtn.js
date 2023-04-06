@@ -206,6 +206,12 @@ imgInputTag.addEventListener("change", function() {
     fileReader.readAsDataURL(file);
  }
 
- 
+
+
 // 이미지 업로드 스크립트 시작
- 
+
+
+// 제목 변경 버튼 클릭
+function TitleModify() {
+	
+} 

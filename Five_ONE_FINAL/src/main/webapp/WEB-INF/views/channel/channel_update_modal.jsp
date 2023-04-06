@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="${path }/resources/hochan_JavaScript/modify.js"></script>
 	<!-- Vertically centered scrollable modal -->
 	<div class="video-modify">
-		<div>${pageContext.request.contextPath }</div>
 		<input type="hidden" id="subVideoCode" name="subVideoCode" value="${playList.video_code }">
 		<input type="hidden" id="channelCode" name="channelCode" value="${playList.channel_code }">
 	  	<div class="container text-left img-thumbnail">
@@ -61,8 +60,8 @@
 	  	  <div class="row col-10">
 	  	  <hr class="hrtag">
 	  	  	<div class="col-10">
-	  	  		<div align="left">제 목<span class="btn-position"><button class="btn btn-outline-success btn-sm">저 장</button></span></div>
-	  	  		<input class="form-control" name="video_title" list="datalistOptions" id="exampleDataList" placeholder="변경할 제목을 알려주세요" value="${playList.video_title }">
+	  	  		<div align="left">제 목<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="nameModify(${playList.video_code }, ${playList.video_title })">저 장</button></span></div>
+	  	  		<input class="form-control title" name="video_title" list="datalistOptions" id="exampleDataList" placeholder="변경할 제목을 알려주세요" value="${playList.video_title }">
 	  	  	</div>
 	  	  </div> <!-- 영상 제목 row -->
 	  	  
@@ -73,7 +72,7 @@
 	  	  <hr class="hrtag">
 	  	  	<div class="col-8">
 		  	  <div class="form-floating">
-		  	  	<div align="left">영 상 소 개<span class="btn-position"><button class="btn btn-outline-success btn-sm">저 장</button></span></div>
+		  	  	<div align="left">영 상 소 개<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="AreaModify(${playList.video_code}, ${playList.video_title})">저 장</button></span></div>
 				<c:if test="${playList.video_cont eq 'null'}">
 				  <textarea class="form-control" name="video_cont" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px; width: 100%;"></textarea>
 				</c:if>
@@ -208,7 +207,6 @@
 						 <div class="input-group">
 					      <label class="input-group-text form-control" for="autoSizingInputGroup">
 					      	파일선택&nbsp;&nbsp;
-					      	
 					      	<c:if test="${empty playList.video_img}">
 						      	<input type="text" name="img_name" class="img_field" value="파일을 선택해주세요" readonly>
 					      	</c:if>
