@@ -18,7 +18,21 @@ $(function() {
 		
 	 });
 	 
+	  $(".img_field").on("click", function(e) {
+		 if(!confirm("이미지를 수정하면 이전 이미지를 가져올 수 없습니다. 수정하시겠습니까?")) {
+			 e.preventDefault();
+		 } else {
+			 $("#autoSizingInputGroup").click();
+		 }
+	  });
 	  
+	  $("#autoSizingInputGroup").on("click", function(e) {
+		 if(!confirm("이미지를 수정하면 이전 이미지를 가져올 수 없습니다. 수정하시겠습니까?")) {
+			 e.preventDefault();
+		 } else {
+			
+		 }
+	  });
 });
  
 const movieArea = document.querySelector("#movie_area");
@@ -69,6 +83,31 @@ const movieArea = document.querySelector("#movie_area");
 	 } else {
 		 alert('mp4, wmv, avi, mkv 확장자 영상만 업로드 가능해요!');
 	 }
+});
+
+/* 영상 이미지 수정 */
+$("##autoSizingInputGroup").on("change", function(e) {
+	const channelCode = $("#channelCode").val(); // 채널 코드
+	const subVideoCode = $("#subVideoCode").val(); // 비디오 코드
+	
+	const formData = new FormData();
+	const currentFile = $("#autoSizingInputGroup")[0].files[0];
+	formData.append('file_upload', currentFile);
+	
+	$.ajax({
+		url: getContextPath() + "/movieUpload.do?chCode=" + channelCode + "&imCode=" + subVideoCode,
+		type: 'POST',
+		data: formData,
+		datatype: 'text',
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+		success: function(e) {
+			alert('썸네일 이미지 수정 완료');
+		}, error: function(e) {
+			alert('썸네일 이미지 수정 실패');
+		}
+	});
 });
 
 /* 영상 제목 변경 */
@@ -124,3 +163,5 @@ function AreaModify(videoCode, currentArea) {
 		});
 	}
 }
+
+

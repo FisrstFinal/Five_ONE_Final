@@ -863,6 +863,11 @@ public class ChannelController {
 		return "File Exception";
 	}
 	
+	
+	
+	
+	
+	
 	// 영상 이름, 내용 등 수정
 	@RequestMapping(value = "nameModify.do")
 	public String nameModify(@RequestParam("videoTitle") String videoTitle, @RequestParam("videoCode") String videoCode, HttpServletResponse response) {
