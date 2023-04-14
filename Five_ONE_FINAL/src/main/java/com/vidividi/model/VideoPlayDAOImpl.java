@@ -36,14 +36,13 @@ public class VideoPlayDAOImpl implements VideoPlayDAO {
 		return check;
 	}
 	
+	// 영상 이름 수정
 	@Override
-	public int updateVideo(VideoPlayDTO videoDTO) {
-		return this.session.update("updateVideo", videoDTO);
+	public String updateVideo(VideoPlayDTO videoDTO) {
+		if(this.session.update("updateVideo", videoDTO) > 0) {
+			return this.session.selectOne("channelCode", videoDTO);
+		}
+		
+		return "Video Modify Error";
 	}
-	
-	@Override
-	public int contModify(VideoPlayDTO videoDTO) {
-		return this.session.update("contModify", videoDTO);
-	}
-	
 }

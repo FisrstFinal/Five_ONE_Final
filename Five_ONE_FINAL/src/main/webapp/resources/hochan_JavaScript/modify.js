@@ -113,18 +113,20 @@ $("##autoSizingInputGroup").on("change", function(e) {
 /* 영상 제목 변경 */
 function nameModify(videoCode, currentTitle) {
 	if(!(confirm('제목을 수정하시겠습니까?'))) {
-		$('.title').attr('value', currentTitle);
+		$("#exampleDataList").val(currentTitle);
 	} else {
 		var title = $("#exampleDataList").val();
+		
+		var data = {};
+		data["videoTitle"] = title;
+		data["videoCode"] = videoCode;
+		data["currentTtile"] = currentTitle;
 		
 		$.ajax({
 			url: "nameModify.do",
 			type: "POST",
-			data: {
-				"videoTitle": title,
-				"videoCode": videoCode
-			},
-			datatype: text,
+			data: JSON.stringfy(data),
+			datatype: 'text',
 			success: function(e) {
 				alert('제목 수정 완료');
 				$('#exampleDataList').attr('value', e);
@@ -139,17 +141,19 @@ function nameModify(videoCode, currentTitle) {
 
 /* 영상 내용 변경 */
 function AreaModify(videoCode, currentArea) {
+	alert('테스트');
 	if(!(confirm('내용을 수정하시겠습니까?'))) {
 		
 	} else {
 		var cont = $("#floatingTextarea2").val();
 		
 		$.ajax({
-			url: "contentModify.do",
+			url: "nameModify.do",
 			type: "POST",
 			data: {
 				"videoCode": videoCode,
 				"contArea": cont
+				
 			},
 			datatype: text,
 			success: function(e) {

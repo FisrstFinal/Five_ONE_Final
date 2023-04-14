@@ -33,6 +33,10 @@
   	</update>
   	
   	<update id="updateVideo" parameterType="videoplayDTO">
-  		update video_play set video_title = #{video_title} where video_code = #{video_code}
+  		update video_play set video_title = #{video_title} where video_code = #{video_code}; 
   	</update>
+  	
+  	<select id="channelCode" parameterType="videoplayDTO">
+  		select channel_code from video_play where video_code = #{video_code};
+  	</select>
   </mapper>

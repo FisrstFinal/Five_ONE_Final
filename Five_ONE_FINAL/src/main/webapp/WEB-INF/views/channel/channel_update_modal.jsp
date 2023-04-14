@@ -60,7 +60,7 @@
 	  	  <div class="row col-10">
 	  	  <hr class="hrtag">
 	  	  	<div class="col-10">
-	  	  		<div align="left">제 목<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="nameModify(${playList.video_code }, ${playList.video_title })">저 장</button></span></div>
+	  	  		<div align="left">제 목<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="nameModify('${playList.video_code }', '${playList.video_title }')">저 장</button></span></div>
 	  	  		<input class="form-control title" name="video_title" list="datalistOptions" id="exampleDataList" placeholder="변경할 제목을 알려주세요" value="${playList.video_title }">
 	  	  	</div>
 	  	  </div> <!-- 영상 제목 row -->
@@ -72,7 +72,7 @@
 	  	  <hr class="hrtag">
 	  	  	<div class="col-8">
 		  	  <div class="form-floating">
-		  	  	<div align="left">영 상 소 개<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="AreaModify(${playList.video_code}, ${playList.video_title})">저 장</button></span></div>
+		  	  	<div align="left">영 상 소 개<span class="btn-position"><button class="btn btn-outline-success btn-sm" onclick="AreaModify('${playList.video_code}', '${playList.video_cont}')">저 장</button></span></div>
 				<c:if test="${playList.video_cont eq 'null'}">
 				  <textarea class="form-control" name="video_cont" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 250px; width: 100%;"></textarea>
 				</c:if>
@@ -222,7 +222,8 @@
 				</div>
 	  	  	</div>
 	  	  </div>
-	  	  <!-- 썸네일 이미지 row -->		  		  		  		  	
+	  	  <!-- 썸네일 이미지 row -->
+	  	  </div>
 	</div>
 </body>
 </html>

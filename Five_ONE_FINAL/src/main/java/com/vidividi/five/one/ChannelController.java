@@ -870,15 +870,38 @@ public class ChannelController {
 	
 	// 영상 이름, 내용 등 수정
 	@RequestMapping(value = "nameModify.do")
-	public String nameModify(@RequestParam("videoTitle") String videoTitle, @RequestParam("videoCode") String videoCode, HttpServletResponse response) {
+	public String nameModify(
+			@RequestParam Map<String, String> map,
+			HttpServletResponse response) {
 		VideoPlayDTO videoDto = new VideoPlayDTO();
-		videoDto.setVideo_code(videoCode);
-		videoDto.setVideo_title(videoTitle);
+//		videoDto.setVideo_code(videoCode);
+//		videoDto.setVideo_title(videoTitle);
 		
+		String beforeTitle = map.get("currentTitle");
+		String afterTitle = map.get("videoTitle");
+		String videoCode = map.get("videoCode");
+		
+		videoDto.setVideo_code(videoCode);
+		videoDto.setVideo_title(afterTitle);
+		
+		System.out.println("beforeTitle: " + beforeTitle);
 		try {
 			PrintWriter out = response.getWriter();
-			if(videodao.updateVideo(videoDto) > 0) {
-				return videoTitle;			
+			String channelCode = videodao.updateVideo(videoDto);
+			if(channelCode.equals(null)) {	
+				String path = 
+						"F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/" + channelCode + "/" + beforeTitle + ".mp4";
+				
+				File file = new File(path);
+				
+				boolean isExists = file.exists();
+				if(!(isExists)) {
+					return "Name is Empty";
+				} else {
+					file.renameTo(new File(afterTitle));
+					
+					return afterTitle;			
+				}
 			} else {
 				out.println("<script>");
 				out.println("alert('수정 오류')");
@@ -893,29 +916,29 @@ public class ChannelController {
 		return "Name Exception";
 	}
 	
-	@RequestMapping(value = "contentModify.do")
-	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
-		VideoPlayDTO videoDto = new VideoPlayDTO();
-		videoDto.setVideo_code(videoCode);
-		videoDto.setVideo_cont(cont);
-		
-		try {
-			PrintWriter out = response.getWriter();
-			if(videodao.contModify(videoDto) > 0) {
-				return cont;
-			} else {
-				out.println("<script>");
-				out.println("alert('수정 오류')");
-				out.println("history.back();");
-				out.println("</script>");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "Area Exception";
-	}
+//	@RequestMapping(value = "contentModify.do")
+//	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
+//		VideoPlayDTO videoDto = new VideoPlayDTO();
+//		videoDto.setVideo_code(videoCode);
+//		videoDto.setVideo_cont(cont);
+//		
+//		try {
+//			PrintWriter out = response.getWriter();
+//			if(videodao.contModify(videoDto) > 0) {
+//				return cont;
+//			} else {
+//				out.println("<script>");
+//				out.println("alert('수정 오류')");
+//				out.println("history.back();");
+//				out.println("</script>");
+//			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return "Area Exception";
+//	}
 	
 	
 	//=========================== 채널 수정 ==================================
