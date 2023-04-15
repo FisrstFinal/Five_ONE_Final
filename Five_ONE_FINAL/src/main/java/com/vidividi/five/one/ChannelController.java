@@ -916,29 +916,29 @@ public class ChannelController {
 		return "Name Exception";
 	}
 	
-//	@RequestMapping(value = "contentModify.do")
-//	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
-//		VideoPlayDTO videoDto = new VideoPlayDTO();
-//		videoDto.setVideo_code(videoCode);
-//		videoDto.setVideo_cont(cont);
-//		
-//		try {
-//			PrintWriter out = response.getWriter();
-//			if(videodao.contModify(videoDto) > 0) {
-//				return cont;
-//			} else {
-//				out.println("<script>");
-//				out.println("alert('수정 오류')");
-//				out.println("history.back();");
-//				out.println("</script>");
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "Area Exception";
-//	}
+	@RequestMapping(value = "contentModify.do")
+	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
+		VideoPlayDTO videoDto = new VideoPlayDTO();
+		videoDto.setVideo_code(videoCode);
+		videoDto.setVideo_cont(cont);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			if(videodao.contModify(videoDto) > 0) {
+				return cont;
+			} else {
+				out.println("<script>");
+				out.println("alert('수정 오류')");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "Area Exception";
+	}
 	
 	
 	//=========================== 채널 수정 ==================================

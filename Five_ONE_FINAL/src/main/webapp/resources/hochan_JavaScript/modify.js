@@ -120,7 +120,7 @@ function nameModify(videoCode, currentTitle) {
 		var data = {};
 		data["videoTitle"] = title;
 		data["videoCode"] = videoCode;
-		data["currentTtile"] = currentTitle;
+		data["currentTitle"] = currentTitle;
 		
 		$.ajax({
 			url: "nameModify.do",
@@ -147,14 +147,16 @@ function AreaModify(videoCode, currentArea) {
 	} else {
 		var cont = $("#floatingTextarea2").val();
 		
+		var data = {};
+		data["videoTitle"] = cont;
+		data["videoCode"] = videoCode;
+		data["currentTitle"] = currentTitle;
+		
+		
 		$.ajax({
-			url: "nameModify.do",
+			url: "contentModify.do",
 			type: "POST",
-			data: {
-				"videoCode": videoCode,
-				"contArea": cont
-				
-			},
+			data: JSON.stringfy(data),
 			datatype: text,
 			success: function(e) {
 				alert('내용 수정 완료');
