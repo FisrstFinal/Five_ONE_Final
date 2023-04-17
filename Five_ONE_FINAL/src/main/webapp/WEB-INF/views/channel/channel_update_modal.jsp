@@ -68,7 +68,7 @@
 	  	  <br>
 	  	  
 	  	  <!-- 영상 설명 row -->
-	  	  <div clas="row col-10">
+	  	  <div class="row col-10">
 	  	  <hr class="hrtag">
 	  	  	<div class="col-8">
 		  	  <div class="form-floating">

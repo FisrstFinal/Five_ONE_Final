@@ -18,4 +18,6 @@ public interface VideoPlayDAO {
 	// 영상 수정
 	public String updateVideo(VideoPlayDTO videoDTO);
 	
+	// 영상 글 수정
+	public int contModify(VideoPlayDTO videoDTO);
 }

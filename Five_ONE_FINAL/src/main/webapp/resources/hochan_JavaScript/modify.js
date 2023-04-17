@@ -126,6 +126,7 @@ function nameModify(videoCode, currentTitle) {
 			url: "nameModify.do",
 			type: "POST",
 			data: JSON.stringfy(data),
+			contentType: "application/json; charset=UTF-8",
 			datatype: 'text',
 			success: function(e) {
 				alert('제목 수정 완료');
@@ -141,23 +142,21 @@ function nameModify(videoCode, currentTitle) {
 
 /* 영상 내용 변경 */
 function AreaModify(videoCode, currentArea) {
-	alert('테스트');
 	if(!(confirm('내용을 수정하시겠습니까?'))) {
-		
+		$("#floatingTextarea2").val(currentArea);
 	} else {
 		var cont = $("#floatingTextarea2").val();
 		
 		var data = {};
 		data["videoTitle"] = cont;
 		data["videoCode"] = videoCode;
-		data["currentTitle"] = currentTitle;
-		
 		
 		$.ajax({
 			url: "contentModify.do",
 			type: "POST",
-			data: JSON.stringfy(data),
-			datatype: text,
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			datatype: "text",
 			success: function(e) {
 				alert('내용 수정 완료');
 				$('#floatingTextarea2').attr('value', e);

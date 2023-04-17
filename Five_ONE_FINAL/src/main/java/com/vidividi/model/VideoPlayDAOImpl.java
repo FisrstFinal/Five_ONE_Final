@@ -45,4 +45,9 @@ public class VideoPlayDAOImpl implements VideoPlayDAO {
 		
 		return "Video Modify Error";
 	}
+	
+	@Override
+	public int contModify(VideoPlayDTO videoDTO) {
+		return this.session.update("contModify", videoDTO);
+	}
 }

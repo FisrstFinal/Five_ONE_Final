@@ -45,6 +45,8 @@ import com.vidividi.variable.PlaylistDTO;
 import com.vidividi.variable.SubscribeDTO;
 import com.vidividi.variable.VideoPlayDTO;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Controller
 public class ChannelController {
@@ -869,13 +871,12 @@ public class ChannelController {
 	
 	
 	// 영상 이름, 내용 등 수정
-	@RequestMapping(value = "nameModify.do")
+	@ResponseBody
+	@RequestMapping(value = "nameModify.do", produces = "application/text; charset=UTF-8")
 	public String nameModify(
-			@RequestParam Map<String, String> map,
+			@RequestBody Map<String, String> map,
 			HttpServletResponse response) {
 		VideoPlayDTO videoDto = new VideoPlayDTO();
-//		videoDto.setVideo_code(videoCode);
-//		videoDto.setVideo_title(videoTitle);
 		
 		String beforeTitle = map.get("currentTitle");
 		String afterTitle = map.get("videoTitle");
@@ -916,28 +917,35 @@ public class ChannelController {
 		return "Name Exception";
 	}
 	
-	@RequestMapping(value = "contentModify.do")
-	public String contModify(@RequestParam("videoCode") String videoCode, @RequestParam("contArea") String cont, HttpServletResponse response) {
+	@ResponseBody
+	@RequestMapping(value = "contentModify.do", produces = "application/text; charset=UTF-8")
+	public String contModify(
+			@RequestBody Map<String, Object> map,
+			HttpServletResponse response) {
+		
+		
 		VideoPlayDTO videoDto = new VideoPlayDTO();
-		videoDto.setVideo_code(videoCode);
-		videoDto.setVideo_cont(cont);
+		
+		videoDto.setVideo_code(map.get("videoCode").toString());
+		videoDto.setVideo_cont(map.get("videoTitle").toString());
+		
+//		for(String key: map.keySet()) {
+//			videoDto.setVideo_code(map.get(key).toString());
+//			videoDto.setVideo_cont(map.get(key).toString());
+//		}
 		
 		try {
-			PrintWriter out = response.getWriter();
 			if(videodao.contModify(videoDto) > 0) {
-				return cont;
+				String resultArea = map.get("videoTitle").toString();
+				return resultArea;
 			} else {
-				out.println("<script>");
-				out.println("alert('수정 오류')");
-				out.println("history.back();");
-				out.println("</script>");
+				return "==================================\\n Area Null Exception \\n==================================";
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "Area Exception";
+		return "==================================\n Area Exception \n==================================";
 	}
 	
 	
