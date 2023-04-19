@@ -104,6 +104,8 @@ $("##autoSizingInputGroup").on("change", function(e) {
 		contentType: false,
 		success: function(e) {
 			alert('썸네일 이미지 수정 완료');
+			
+			
 		}, error: function(e) {
 			alert('썸네일 이미지 수정 실패');
 		}

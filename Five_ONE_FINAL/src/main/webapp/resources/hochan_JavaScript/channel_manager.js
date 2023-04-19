@@ -252,7 +252,7 @@ function videoDelete(videoCode, channelCode, title) {
 	});	
 	}
 }
-a
+
 // 비디오 업로드 함수
 function newVideo() {
 	$.ajax({
@@ -320,7 +320,11 @@ function bundleMake() {
 	});
 }
 
-/* 재생목록 삭제 함수 */
+/* 재생 목록 처음 추가 */
+function createBundle() {
+	
+}
+/* 재생 목록 삭제 함수 */
 function bundleDel(bundleCode) {	
 	let ownerCode = $("#oCc").val();
 	

@@ -39,7 +39,7 @@
 	  	  	<div class="col-5">
 		  	  <div id="movie_area">
 			      <video id="upload_file_btn" class="update_modal img-thumbnail">
-			      	<source class="source_tag" src="${path}/resources/AllChannel/${playList.channel_code}/${playList.video_title}.mp4" type="video/mp4">
+			      	<source class="source_tag" src="/one/resources/AllChannel/${playList.channel_code}/${playList.video_title}.mp4" type="video/mp4">
 			      </video>
 			  </div>
 	  	  	</div>

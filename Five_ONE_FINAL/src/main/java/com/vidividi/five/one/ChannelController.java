@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.api.client.http.HttpResponse;
+import com.google.common.io.Files;
 import com.vidividi.model.BundleDAO;
 import com.vidividi.model.ChannelDAO;
 import com.vidividi.model.VideoPlayDAO;
@@ -825,6 +826,7 @@ public class ChannelController {
 			HttpServletRequest request) {
 
 		String parentPath = "F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/" + chCode;
+		//String serverPath = "http://localhost:8756/one/resources/AllChannel/" + chCode;
 		
 		try {
 			if(!multi.isEmpty()) {
@@ -834,9 +836,8 @@ public class ChannelController {
 				
 				String fileName = multi.getOriginalFilename();
 				
-				
-				
 				File dir = new File(parentPath); // 경로 설정
+				
 				if(!(dir.exists())) {
 					dir.mkdir();
 				}
@@ -845,13 +846,21 @@ public class ChannelController {
 				File currentfile = new File(parentPath, playDTO.getVideo_title() + ".mp4");
 				System.out.println(currentfile.getAbsolutePath());
 				
+				//File currentServerFile = new File(serverPath, playDTO.getVideo_title() + ".mp4");
+				
 				if(currentfile.exists()) {
 					currentfile.delete();
+					//currentServerFile.delete();
+					
 					System.out.println("삭제 완료");
 					// 수정한 영상을 업로드
 					
 					File originFile = new File(parentPath, playDTO.getVideo_title() + ".mp4");
+					//File serverOriginFile = new File(serverPath,  playDTO.getVideo_title() + ".mp4");
+					
 					multi.transferTo(originFile);
+					//Files.copy(originFile, serverOriginFile);
+					
 					System.out.println("업로드 완료");
 					return "업로드 완료: " + fileName;
 				}
@@ -870,17 +879,17 @@ public class ChannelController {
 	
 	
 	
-	// 영상 이름, 내용 등 수정
+	// 영상 이름 수정
 	@ResponseBody
 	@RequestMapping(value = "nameModify.do", produces = "application/text; charset=UTF-8")
 	public String nameModify(
-			@RequestBody Map<String, String> map,
+			@RequestBody Map<String, Object> map,
 			HttpServletResponse response) {
 		VideoPlayDTO videoDto = new VideoPlayDTO();
 		
-		String beforeTitle = map.get("currentTitle");
-		String afterTitle = map.get("videoTitle");
-		String videoCode = map.get("videoCode");
+		String beforeTitle = map.get("currentTitle").toString();
+		String afterTitle = (String)map.get("videoTitle").toString();
+		String videoCode = (String)map.get("videoCode").toString();
 		
 		videoDto.setVideo_code(videoCode);
 		videoDto.setVideo_title(afterTitle);
@@ -893,13 +902,17 @@ public class ChannelController {
 				String path = 
 						"F:/GitHub/workspace(Spring)/Five_ONE_Final/Five_ONE_FINAL/src/main/webapp/resources/AllChannel/" + channelCode + "/" + beforeTitle + ".mp4";
 				
+				String realPath = "/one/resources/AllChannel/" + channelCode + "/" + beforeTitle + ".mp4";
+				
 				File file = new File(path);
+				File serverFile = new File(realPath);
 				
 				boolean isExists = file.exists();
 				if(!(isExists)) {
 					return "Name is Empty";
 				} else {
 					file.renameTo(new File(afterTitle));
+					serverFile.renameTo(new File(afterTitle));
 					
 					return afterTitle;			
 				}

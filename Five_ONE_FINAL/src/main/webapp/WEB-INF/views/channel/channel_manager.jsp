@@ -66,7 +66,9 @@
 				  	<hr color="green">
 				  	<div align="left">
 				  	<c:if test="${empty bundle }">
-						<a href="#" class="text-decoration-none" style="display: flex;">재생목록이 없어요. 재생목록을 추가해보세요!</a>	
+						<a href="#exampleModalToggle" data-bs-toggle="modal" class="text-decoration-none" style="display: flex;">
+							재생목록이 없어요. 재생목록을 추가해보세요!
+						</a>	
 					</c:if>
 					<c:if test="${!empty bundle }">
 						<div class="nav-link px-0 align-middle atag">
@@ -214,6 +216,25 @@
 	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_manager.js"></script>
 	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_modify.js"></script>
 	<!-- member js -->
+	<!-- bundle modal -->
+	<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalToggleLabel">이름을 입력해주세요.</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+			        <input type="text" class="bundleAdd">
+			    </div>
+			    <div class="modal-footer">
+			    	<button type="button" class="btn btn-outline-success">ADD</button>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<!-- bundle modal End -->
+	
 	<script src="${path}/resources/member/member_js.js"></script>
 </body>
 </html>
