@@ -119,7 +119,9 @@
 			  			
 			  		</c:if>
 			  		<c:if test="${!empty bundle}">
-			  			<button class="btn btn-outline-success btn-sm">저 장</button></span>
+			  			<button class="btn btn-outline-success btn-sm" onclick="VideoBundleAdd('${playList.video_code }')">저 장</button>
+			  			<button class="btn btn-outline-success btn-sm" onclick="reset()">초 기 화</button>
+			  			</span>
 			  		</c:if>
 		  		</strong>
 		  	</div>

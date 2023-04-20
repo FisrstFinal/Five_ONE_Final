@@ -657,6 +657,7 @@ public class ChannelController {
 		return arr.toString();
 	}
 	
+	
 	// 구독 관리
 	@ResponseBody
 	@RequestMapping(value = "subscribe.do", produces = "application/text; charset=UTF-8")
@@ -962,6 +963,23 @@ public class ChannelController {
 		return "==================================\n Area Exception \n==================================";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "selectBundle.do", produces = "application/text; charset=UTF-8")
+	public String playlistAdd(@RequestBody Map<String, Object> map) {
+		PlaylistDTO playDto = new PlaylistDTO();
+		playDto.setVideo_code(map.get("videoCode").toString());
+		playDto.setPlaylist_code(map.get("bundleCode").toString());
+		
+		System.out.println(map);
+		int check = bundledao.selectBundle(playDto);
+		
+		// 재생목록 코드 : 채널코드, 재생목록 이름
+		// 비디오코드
+		if(check > 0) {
+			return "재생목록 수정 완료";
+		}
+		return "재생목록 수정 실패-logic";
+	}
 	
 	//=========================== 채널 수정 ==================================
 	// 영상 이름 받아오기

@@ -24,4 +24,12 @@
 	<insert id="createBundle" parameterType="map">
 		insert into bundlelist values (#{bundleCode}, #{bundleName}, default, default, #{ownerCode})
 	</insert>
+	
+	<select id="selectBundle" parameterType="playlistDTO" resultType="bundleDTO">
+		select channel_code, bundle_title from bundlelist where bundle_code = #{playlist_code}
+	</select>
+	
+	<insert id="selectAddBundle" parameterType="playlistDTO">
+		insert into playlist values (#{channel_code}, #{playlist_title}, #{playlist_code}, #{video_code}, CURRENT_DATE)
+	</insert>
 </mapper>

@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 
 import com.vidividi.variable.BundleDTO;
+import com.vidividi.variable.PlaylistDTO;
 import com.vidividi.variable.VideoPlayDTO;
 
 
@@ -37,4 +38,13 @@ public class BundleDAOImpl implements BundleDAO {
 		
 		return check;
 	} // 재생목록 삭제
+	
+	@Override
+	public int selectBundle(PlaylistDTO playDto) {
+		BundleDTO bundleDTO = this.session.selectOne("selectBundle", playDto);
+		playDto.setChannel_code(bundleDTO.getChannel_code());
+		playDto.setPlaylist_title(bundleDTO.getBundle_title());
+		
+		return this.session.insert("selectAddBundle", playDto);
+	}
 }

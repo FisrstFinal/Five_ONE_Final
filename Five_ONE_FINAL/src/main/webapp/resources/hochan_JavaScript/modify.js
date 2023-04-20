@@ -33,6 +33,7 @@ $(function() {
 			
 		 }
 	  });
+	  
 });
  
 const movieArea = document.querySelector("#movie_area");
@@ -86,7 +87,7 @@ const movieArea = document.querySelector("#movie_area");
 });
 
 /* 영상 이미지 수정 */
-$("##autoSizingInputGroup").on("change", function(e) {
+$("#autoSizingInputGroup").on("change", function(e) {
 	const channelCode = $("#channelCode").val(); // 채널 코드
 	const subVideoCode = $("#subVideoCode").val(); // 비디오 코드
 	
@@ -125,7 +126,7 @@ function nameModify(videoCode, currentTitle) {
 		data["currentTitle"] = currentTitle;
 		
 		$.ajax({
-			url: "nameModify.do",
+			url: getContextPath() + "/nameModify.do",
 			type: "POST",
 			data: JSON.stringfy(data),
 			contentType: "application/json; charset=UTF-8",
@@ -154,7 +155,7 @@ function AreaModify(videoCode, currentArea) {
 		data["videoCode"] = videoCode;
 		
 		$.ajax({
-			url: "contentModify.do",
+			url: getContextPath() + "/contentModify.do",
 			type: "POST",
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=UTF-8",
@@ -171,4 +172,40 @@ function AreaModify(videoCode, currentArea) {
 	}
 }
 
+// 재생목록에 영상 추가하기
+var selectValue;
+function VideoBundleAdd(video_code) { // 영상 재생목록 추가
+	
+	if(!$("#bundleCheck > option:selected").val()) {
+		alert("재생 목록을 선택해주세요.");
+	} else {
+		var select = document.getElementById("bundleCheck");
+		selectValue = (select.options[select.selectedIndex].value);
+		
+		var data = {};
+		data["videoCode"] = video_code;
+		data["bundleCode"] = selectValue;
+		
+		console.log(video_code + " " + selectValue);
+		
+		$.ajax({
+			url: getContextPath() + "/selectBundle.do",
+			type: "POST",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "text",
+			success: function(e) {
+				alert(e);
+			},
+			error: function() {
+				alert("재생목록 수정 실패");
+			}
+		});
+	}	
+}
+
+function reset() {
+	$("#bundleCheck").val("");
+	selectValue = "";
+}
 

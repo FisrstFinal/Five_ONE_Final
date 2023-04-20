@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.vidividi.variable.BundleDTO;
+import com.vidividi.variable.PlaylistDTO;
 import com.vidividi.variable.VideoPlayDTO;
 
 public interface BundleDAO {
@@ -12,4 +13,6 @@ public interface BundleDAO {
 	public int bundleAdd(BundleDTO bundledto); // 재생목록 추가
 	
 	public int bundleDel(String bundleCode);
+	
+	public int selectBundle(PlaylistDTO playDto);
 }
