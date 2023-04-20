@@ -14,6 +14,12 @@ let defaultProfil;
 
 let loading_playlist = false;
 
+// 경로
+function getContextPath(){
+	let path = location.href.indexOf(location.host)+location.host.length;
+	
+	return location.href.substring(path, location.href.indexOf('/', path+1));
+}
 
 $(function() {
 	$.ajaxSetup({
@@ -128,13 +134,6 @@ $(function() {
 		console.log("123");
 	});
 });
-
-// 경로
-function getContextPath(){
-	let path = location.href.indexOf(location.host)+location.host.length;
-	
-	return location.href.substring(path, location.href.indexOf('/', path+1));
-}
 
 // 영상 변경시
 function showFile() {
@@ -320,12 +319,8 @@ function bundleMake() {
 	});
 }
 
-/* 재생 목록 처음 추가 */
-function createBundle() {
-	
-}
 /* 재생 목록 삭제 함수 */
-function bundleDel(bundleCode) {	
+function bundleDel(bundleCode) {
 	let ownerCode = $("#oCc").val();
 	
 	$.ajax({
@@ -339,7 +334,7 @@ function bundleDel(bundleCode) {
 			let arr = data;
 			
 			if(arr == "[]") {
-				loading_playlist = false;
+				$("#bundleList").html(" ");
 			} else {
 				let list = JSON.parse(data);
 				let li = "";

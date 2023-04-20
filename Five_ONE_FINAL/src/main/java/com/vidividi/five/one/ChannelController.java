@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -588,7 +590,6 @@ public class ChannelController {
 	public String bundleMaking(@RequestParam("code") String code, @RequestParam("bundleN") String bundleName, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
-		
 		String bundleCode = service.generateBundleCode();
 		
 		BundleDTO bundledto = new BundleDTO();
@@ -614,9 +615,9 @@ public class ChannelController {
 		
 		int check = this.bundledao.bundleDel(code);
 		String arr = "";
-
+		
 		if(check > 0) {
-			arr = bundleList(ownerCode, response);
+			arr = bundleList(ownerCode, response);;
 		} else {
 			arr = "[]";
 		}

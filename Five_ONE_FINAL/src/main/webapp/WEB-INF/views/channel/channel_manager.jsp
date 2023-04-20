@@ -63,51 +63,45 @@
 						</div>
 					</div>
 				  	
-				  	<hr color="green">
 				  	<div align="left">
-				  	<c:if test="${empty bundle }">
-						<a href="#exampleModalToggle" data-bs-toggle="modal" class="text-decoration-none" style="display: flex;">
-							재생목록이 없어요. 재생목록을 추가해보세요!
-						</a>	
-					</c:if>
-					<c:if test="${!empty bundle }">
-						<div class="nav-link px-0 align-middle atag">
-                    		<i class="bi bi-bookmark-star"></i><span class="ms-1 d-none d-sm-inline atag">내 재생목록</span>
-                    	</div>
-                     	<ul class="nav flex-column ms-3" id="bundleList">
-                     	<c:forEach items="${bundle }" var="bundledto" varStatus="status">
-                     		<li class="w-100 index">
-                             	<a href="javascript:void(0)" class="nav-link px-3 bundle_text" style="display: inline-block;" onclick="bundleDetail('${bundledto.bundle_code }')">
-                             		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list icon black" viewBox="0 0 16 16">
-									  <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
-									  <path fill-rule="evenodd" d="M12 3v10h-1V3h1z"/>
-									  <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/>
-									  <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
-									</svg>
-                             		<span class="d-none d-sm-inline child_bundle">${bundledto.bundle_title }</span>	
-                             	</a>
-                             	<button id="bDelIndex" class="delicon" onclick="bundleDel('${bundledto.bundle_code}')">
-                             			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-									  	<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+					<div class="nav-link px-0 align-middle atag">
+            			<i class="bi bi-bookmark-star"></i><span class="ms-1 d-none d-sm-inline atag">내 재생목록</span>
+            		</div>
+            		<ul class="nav flex-column ms-3" id="bundleList">
+						<c:if test="${!empty bundle }">
+	                     	<c:forEach items="${bundle }" var="bundledto" varStatus="status">
+	                     		<li class="w-100 index">
+	                             	<a href="javascript:void(0)" class="nav-link px-3 bundle_text" style="display: inline-block;" onclick="bundleDetail('${bundledto.bundle_code }')">
+	                             		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list icon black" viewBox="0 0 16 16">
+										  <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
+										  <path fill-rule="evenodd" d="M12 3v10h-1V3h1z"/>
+										  <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/>
+										  <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
 										</svg>
-                             	</button>
-                         	</li>
-                     	</c:forEach>
-                    	</ul>
-                    	<div class="bundleAdd">
-                    		<hr color="green">
-                            	<a data-toggle="collapse" href="#collapse1" aria-expanded="false" class="nav-link px-0"> <span class="d-none d-sm-inline child_bundle">재생 목록 추가하기</span></a>
-                            	<div id="collapse1" class="panel-collapse collapse" role="tabpanel">
-						         <div class="panel-body" style="display: flex;">
-						           <input class="form-control form-control-sm bundleNameField" type="text" placeholder="이름을 입력해주세요" aria-label=".form-control-sm example">
-						           <button onclick="bundleMake()" class="btn btn-link" style="font-size: 12px; color: green; padding-bottom: 2px;">ADD</button>
-						         </div>
-							</div>	
-                    	</div>
-                    	<div>
-                    		<a data-toggle="collapse" href="#Redirect" aria-expanded="false" class="nav-link px-0 bDel"> <span class="d-none d-sm-inline child_bundle">재생 목록 삭제하기</span></a>
-                    	</div>
-					</c:if>	
+	                             		<span class="d-none d-sm-inline child_bundle">${bundledto.bundle_title }</span>	
+	                             	</a>
+	                             	<button id="bDelIndex" class="delicon" onclick="bundleDel('${bundledto.bundle_code}')">
+	                             			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+										  	<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+											</svg>
+	                             	</button>
+	                         	</li>
+	                     	</c:forEach>
+						</c:if>
+					</ul>
+					<div class="bundleAdd">
+	            		<hr color="green">
+	                    	<a data-toggle="collapse" href="#collapse1" aria-expanded="false" class="nav-link px-0"> <span class="d-none d-sm-inline child_bundle">재생 목록 추가하기</span></a>
+	                    	<div id="collapse1" class="panel-collapse collapse" role="tabpanel">
+					         <div class="panel-body" style="display: flex;">
+					           <input class="form-control form-control-sm bundleNameField" type="text" placeholder="이름을 입력해주세요" aria-label=".form-control-sm example">
+					           <button onclick="bundleMake()" class="btn btn-link" style="font-size: 12px; color: green; padding-bottom: 2px;">ADD</button>
+					         </div>
+						</div>	
+	            	</div>
+	            	<div>
+	            		<a data-toggle="collapse" href="#Redirect" aria-expanded="false" class="nav-link px-0 bDel"> <span class="d-none d-sm-inline child_bundle">재생 목록 삭제하기</span></a>
+	            	</div>
 				  	</div>			
 				</div>
 			</div>
@@ -221,14 +215,14 @@
 		<div class="modal-dialog modal-sm modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalToggleLabel">이름을 입력해주세요.</h1>
+					<h1 class="modal-title fs-5" id="exampleModalToggleLabel">재생 목록 생성하기</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-			        <input type="text" class="bundleAdd">
+			        <input type="text" class="bundleName" placeholder="이름을 입력해주세요.">
 			    </div>
 			    <div class="modal-footer">
-			    	<button type="button" class="btn btn-outline-success">ADD</button>
+			    	<button type="button" class="btn btn-outline-success" onClick="createBundle()">ADD</button>
 			    </div>
 			</div>
 		</div>

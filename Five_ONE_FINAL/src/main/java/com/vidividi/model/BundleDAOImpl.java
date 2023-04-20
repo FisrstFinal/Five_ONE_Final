@@ -1,6 +1,9 @@
 package com.vidividi.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,13 +33,8 @@ public class BundleDAOImpl implements BundleDAO {
 	@Override
 	public int bundleDel(String bundleCode) {
 		int check = this.session.delete("bundleDel", bundleCode);
-		int result = 0;
-		if(check > 0) {
-			result = this.session.update("bundleVideoDel", bundleCode);
-		} else {
-			result = 0;
-		}
+		this.session.update("bundleVideoDel", bundleCode);
 		
-		return result;
+		return check;
 	} // 재생목록 삭제
 }

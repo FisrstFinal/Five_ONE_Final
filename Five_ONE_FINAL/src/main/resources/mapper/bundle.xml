@@ -20,4 +20,8 @@
 	<update id="bundleVideoDel" parameterType="String">
 		update playlist set playlist_code = '' where playlist_code = #{bundleCode}
 	</update>
+	
+	<insert id="createBundle" parameterType="map">
+		insert into bundlelist values (#{bundleCode}, #{bundleName}, default, default, #{ownerCode})
+	</insert>
 </mapper>
