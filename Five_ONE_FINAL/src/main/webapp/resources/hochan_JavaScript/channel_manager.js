@@ -169,7 +169,7 @@ function videoModify(videoCode, channelCode) {
 		},
 		datatype: 'html',
 		success: function(data) {
-			$(".video_detail_area"). html(data);
+			$(".video_detail_area").html(data);
 		},
 		error: function() {
 			console.log(false);

@@ -116,8 +116,8 @@
 				  	<th class="col-2">제목</th>
 				  	<th class="col-1" style="font-size: 14px;">공개 상태</th>
 				  	<th class="col-1" style="font-size: 14px;">제한 사항</th>
-				  	<th class="col-1">날짜</th>
 				  	<th class="col-1">조회수</th>
+				  	<th class="col-1">날짜</th>
 				  	<th class="col-1">좋아요</th>
 				  	<th class="col-1">수정</th>
 				  	<th class="col-1">삭제</th>
@@ -150,18 +150,18 @@
 					  		</td>
 					  		<td>
 					  			<c:if test="${mvdto.video_open == 1}">
-									비공개
+									공개
 								</c:if>
 								<c:if test="${mvdto.video_open == 0}">
-									공개
+									비공개
 								</c:if>
 					  		</td>
 					  		<td>
 					  			<c:if test="${mvdto.video_age eq 'true' }">
-					  				아동용
+					  				성인용
 					  			</c:if>
 					  			<c:if test="${mvdto.video_age ne 'true' }">
-					  				성인용
+					  				아동용
 					  			</c:if>
 					  			 
 					  		</td>
@@ -210,24 +210,6 @@
 	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_manager.js"></script>
 	<script type="text/javascript" src="${path}/resources/hochan_JavaScript/channel_modify.js"></script>
 	<!-- member js -->
-	<!-- bundle modal -->
-	<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-		<div class="modal-dialog modal-sm modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalToggleLabel">재생 목록 생성하기</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-			        <input type="text" class="bundleName" placeholder="이름을 입력해주세요.">
-			    </div>
-			    <div class="modal-footer">
-			    	<button type="button" class="btn btn-outline-success" onClick="createBundle()">ADD</button>
-			    </div>
-			</div>
-		</div>
-	</div>
-	<!-- bundle modal End -->
 	
 	<script src="${path}/resources/member/member_js.js"></script>
 </body>

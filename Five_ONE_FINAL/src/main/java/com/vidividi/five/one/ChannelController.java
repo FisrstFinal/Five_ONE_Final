@@ -379,7 +379,9 @@ public class ChannelController {
 	
 	// 영상 수정 모달창
 	@RequestMapping("videoModify.do")
-	public String setVideoUpdate(Model model, @RequestParam("video_code") String videoCode, @RequestParam("channl_code") String channelCode, HttpServletResponse response) {
+	public String setVideoUpdate(Model model, @RequestParam("video_code") String videoCode, 
+			@RequestParam("channl_code") String channelCode, 
+			HttpServletResponse response) {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		VideoPlayDTO playdto = new VideoPlayDTO();
